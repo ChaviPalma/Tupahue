@@ -16,10 +16,35 @@ export default function TestEmailPage() {
                 method: 'POST',
             });
 
-            const data = await response.json();
-            setResult(data);
+            // Verificar si la respuesta es exitosa
+            if (!response.ok) {
+                const errorText = await response.text();
+                setResult({
+                    error: `Error ${response.status}: ${response.statusText}`,
+                    details: errorText || 'No hay detalles adicionales',
+                    message: 'El API de recordatorios falló. Verifica que RESEND_API_KEY esté configurado en Vercel.'
+                });
+                return;
+            }
+
+            // Intentar parsear JSON
+            const contentType = response.headers.get('content-type');
+            if (contentType && contentType.includes('application/json')) {
+                const data = await response.json();
+                setResult(data);
+            } else {
+                const text = await response.text();
+                setResult({
+                    error: 'Respuesta no es JSON',
+                    details: text,
+                    message: 'El API no devolvió una respuesta JSON válida'
+                });
+            }
         } catch (error) {
-            setResult({ error: error.message });
+            setResult({
+                error: error.message,
+                message: 'Error al conectar con el API de recordatorios'
+            });
         } finally {
             setLoading(false);
         }
