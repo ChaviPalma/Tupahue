@@ -47,7 +47,7 @@ export async function GET(request) {
 
             // Calcular días de préstamo según páginas del libro
             const paginas = reserva.libros?.paginas || 100;
-            const diasPrestamo = paginas < 100 ? 7 : 14;
+            const diasPrestamo = paginas < 100 ? 3 : 14;
             dueDate.setDate(dueDate.getDate() + diasPrestamo);
 
             const daysUntilDue = Math.ceil((dueDate - now) / (1000 * 60 * 60 * 24));

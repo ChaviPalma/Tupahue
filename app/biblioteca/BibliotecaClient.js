@@ -52,7 +52,7 @@ export default function BibliotecaClient() {
             alert(error.message || 'Error al reservar el libro');
         } else {
             // Calcular días de préstamo según páginas
-            const diasPrestamo = libro.paginas < 100 ? 7 : 14;
+            const diasPrestamo = libro.paginas < 100 ? 3 : 14;
             alert(`¡Libro reservado exitosamente! Tienes ${diasPrestamo} días para devolverlo.`);
             // Recargar libros
             cargarDatos();
@@ -150,7 +150,7 @@ export default function BibliotecaClient() {
                                         )}
                                         {libro.disponible && libro.paginas && (
                                             <p className={styles.cardText}>
-                                                <strong>Préstamo:</strong> {libro.paginas < 100 ? '7 días' : '14 días'}
+                                                <strong>Préstamo:</strong> {libro.paginas < 100 ? '3 días' : '14 días'}
                                             </p>
                                         )}
                                         {libro.disponible ? (
