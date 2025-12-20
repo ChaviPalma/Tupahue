@@ -80,17 +80,17 @@ export async function GET(request) {
 
                 if (emailType === '3 días') {
                     subject = `Recordatorio: Devolver "${bookTitle}" en 3 días`;
-                    message = `Hola ${userName},\n\nTe recordamos que tienes 3 días para devolver el libro "${bookTitle}" de ${bookAuthor}.\n\nFecha de devolución: ${dueDate.toLocaleDateString('es-CL')}\n\n¡Gracias por usar nuestra biblioteca!\n\nIglesia Reformada Tupahue`;
+                    message = `Hola ${userName},\\n\\nTe recordamos que tienes 3 días para devolver el libro "${bookTitle}" de ${bookAuthor}.\\n\\nFecha de devolución: ${dueDate.toLocaleDateString('es-CL')}\\n\\n¡Gracias por usar nuestra biblioteca!\\n\\nIglesia Reformada Tupahue`;
                 } else if (emailType === '1 día') {
                     subject = `Urgente: Devolver "${bookTitle}" mañana`;
-                    message = `Hola ${userName},\n\n⚠️ Te recordamos que mañana debes devolver el libro "${bookTitle}" de ${bookAuthor}.\n\nFecha de devolución: ${dueDate.toLocaleDateString('es-CL')}\n\n¡Gracias por usar nuestra biblioteca!\n\nIglesia Reformada Tupahue`;
+                    message = `Hola ${userName},\\n\\n⚠️ Te recordamos que mañana debes devolver el libro "${bookTitle}" de ${bookAuthor}.\\n\\nFecha de devolución: ${dueDate.toLocaleDateString('es-CL')}\\n\\n¡Gracias por usar nuestra biblioteca!\\n\\nIglesia Reformada Tupahue`;
                 } else if (emailType === 'hoy') {
                     subject = `¡Hoy vence! Devolver "${bookTitle}"`;
-                    message = `Hola ${userName},\n\n⏰ Hoy es el último día para devolver el libro "${bookTitle}" de ${bookAuthor}.\n\nFecha de devolución: ${dueDate.toLocaleDateString('es-CL')}\n\nPor favor, devuélvelo lo antes posible.\n\nIglesia Reformada Tupahue`;
+                    message = `Hola ${userName},\\n\\n⏰ Hoy es el último día para devolver el libro "${bookTitle}" de ${bookAuthor}.\\n\\nFecha de devolución: ${dueDate.toLocaleDateString('es-CL')}\\n\\nPor favor, devuélvelo lo antes posible.\\n\\nIglesia Reformada Tupahue`;
                 } else if (emailType === 'atrasado') {
                     const daysLate = Math.abs(daysUntilDue);
                     subject = `Libro atrasado: "${bookTitle}" (${daysLate} días)`;
-                    message = `Hola ${userName},\n\n❗ El libro "${bookTitle}" de ${bookAuthor} está atrasado por ${daysLate} día(s).\n\nFecha de devolución era: ${dueDate.toLocaleDateString('es-CL')}\n\nPor favor, devuélvelo lo antes posible.\n\nIglesia Reformada Tupahue`;
+                    message = `Hola ${userName},\\n\\n❗ El libro "${bookTitle}" de ${bookAuthor} está atrasado por ${daysLate} día(s).\\n\\nFecha de devolución era: ${dueDate.toLocaleDateString('es-CL')}\\n\\nPor favor, devuélvelo lo antes posible.\\n\\nIglesia Reformada Tupahue`;
                 }
 
                 try {
