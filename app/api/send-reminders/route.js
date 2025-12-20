@@ -89,9 +89,13 @@ export async function POST() {
             let debeEnviar = false;
             let tipoEmail = '';
 
-            if (diasRestantes === 3) {
+            // AMPLIADO: Enviar en cualquiera de estos casos
+            if (diasRestantes >= 3) {
                 debeEnviar = true;
                 tipoEmail = '3 días';
+            } else if (diasRestantes === 2) {
+                debeEnviar = true;
+                tipoEmail = '2 días';
             } else if (diasRestantes === 1) {
                 debeEnviar = true;
                 tipoEmail = '1 día';
@@ -105,13 +109,16 @@ export async function POST() {
 
             if (debeEnviar) {
                 const nombreUsuario = usuario.raw_user_meta_data?.nombre || 'Usuario';
-
                 let subject = '';
                 let message = '';
 
+                // Generar mensaje según tipo
                 if (tipoEmail === '3 días') {
                     subject = `Recordatorio: Devolver "${libro.titulo}" en 3 días`;
                     message = `Hola ${nombreUsuario},\n\nTe recordamos que tienes 3 días para devolver el libro "${libro.titulo}" de ${libro.autor}.\n\nFecha de devolución: ${fechaVencimiento.toLocaleDateString('es-CL')}\n\n¡Gracias!\nBiblioteca Tupahue`;
+                } else if (tipoEmail === '2 días') {
+                    subject = `Recordatorio: Devolver "${libro.titulo}" en 2 días`;
+                    message = `Hola ${nombreUsuario},\n\nTe recordamos que tienes 2 días para devolver el libro "${libro.titulo}" de ${libro.autor}.\n\nFecha de devolución: ${fechaVencimiento.toLocaleDateString('es-CL')}\n\n¡Gracias!\nBiblioteca Tupahue`;
                 } else if (tipoEmail === '1 día') {
                     subject = `Urgente: Devolver "${libro.titulo}" mañana`;
                     message = `Hola ${nombreUsuario},\n\n⚠️ Mañana debes devolver el libro "${libro.titulo}" de ${libro.autor}.\n\nFecha de devolución: ${fechaVencimiento.toLocaleDateString('es-CL')}\n\n¡Gracias!\nBiblioteca Tupahue`;
