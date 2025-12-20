@@ -1,49 +1,26 @@
 'use client';
 
 import { useState } from 'react';
-import styles from '../biblioteca/biblioteca.module.css';
 
 export default function TestEmailPage() {
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState(null);
 
-    const handleTestEmail = async () => {
+    const handleTest = async () => {
         setLoading(true);
         setResult(null);
 
         try {
-            const response = await fetch('/api/send-reminders', {
-                method: 'POST',
+            const response = await fetch('/api/test-email', {
+                method: 'POST'
             });
 
-            // Verificar si la respuesta es exitosa
-            if (!response.ok) {
-                const errorText = await response.text();
-                setResult({
-                    error: `Error ${response.status}: ${response.statusText}`,
-                    details: errorText || 'No hay detalles adicionales',
-                    message: 'El API de recordatorios falló. Verifica que RESEND_API_KEY esté configurado en Vercel.'
-                });
-                return;
-            }
-
-            // Intentar parsear JSON
-            const contentType = response.headers.get('content-type');
-            if (contentType && contentType.includes('application/json')) {
-                const data = await response.json();
-                setResult(data);
-            } else {
-                const text = await response.text();
-                setResult({
-                    error: 'Respuesta no es JSON',
-                    details: text,
-                    message: 'El API no devolvió una respuesta JSON válida'
-                });
-            }
+            const data = await response.json();
+            setResult(data);
         } catch (error) {
             setResult({
-                error: error.message,
-                message: 'Error al conectar con el API de recordatorios'
+                success: false,
+                error: error.message
             });
         } finally {
             setLoading(false);
@@ -51,56 +28,57 @@ export default function TestEmailPage() {
     };
 
     return (
-        <div className={styles.pageContainer}>
-            <div className={styles.mainContainer}>
-                <h1 className={styles.pageTitle}>Probar Sistema de Recordatorios</h1>
+        <div style={{ padding: '2rem', maxWidth: '800px', margin: '0 auto' }}>
+            <h1>Prueba de Sistema de Emails</h1>
 
-                <div style={{ textAlign: 'center', padding: '2rem' }}>
-                    <p style={{ marginBottom: '2rem' }}>
-                        Haz click en el botón para ejecutar manualmente el sistema de recordatorios por email.
-                    </p>
+            <button
+                onClick={handleTest}
+                disabled={loading}
+                style={{
+                    padding: '1rem 2rem',
+                    fontSize: '1.1rem',
+                    backgroundColor: '#0070f3',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: loading ? 'not-allowed' : 'pointer',
+                    marginTop: '1rem'
+                }}
+            >
+                {loading ? 'Enviando...' : 'Enviar Email de Prueba'}
+            </button>
 
-                    <button
-                        onClick={handleTestEmail}
-                        disabled={loading}
-                        className={styles.btnPrimary}
-                        style={{ fontSize: '1.1rem', padding: '1rem 2rem' }}
-                    >
-                        {loading ? 'Enviando...' : 'Enviar Recordatorios Ahora'}
-                    </button>
-
-                    {result && (
-                        <div style={{
-                            marginTop: '2rem',
-                            padding: '1.5rem',
-                            backgroundColor: result.error ? '#f8d7da' : '#d1e7dd',
-                            border: `1px solid ${result.error ? '#f5c2c7' : '#badbcc'}`,
-                            borderRadius: '8px',
-                            textAlign: 'left'
-                        }}>
-                            <h3 style={{ marginTop: 0 }}>Resultado:</h3>
-                            <pre style={{
-                                whiteSpace: 'pre-wrap',
-                                wordBreak: 'break-word',
-                                fontSize: '0.9rem'
-                            }}>
-                                {JSON.stringify(result, null, 2)}
-                            </pre>
-                        </div>
-                    )}
-
-                    <div style={{
-                        marginTop: '2rem',
-                        padding: '1rem',
-                        backgroundColor: '#fff3cd',
-                        border: '1px solid #ffecb5',
-                        borderRadius: '8px'
-                    }}>
-                        <p style={{ margin: 0, fontSize: '0.9rem' }}>
-                            <strong>Nota:</strong> Para que funcione, debes tener configurado RESEND_API_KEY en Vercel.
-                        </p>
-                    </div>
+            {result && (
+                <div style={{
+                    marginTop: '2rem',
+                    padding: '1.5rem',
+                    backgroundColor: result.success ? '#d1e7dd' : '#f8d7da',
+                    border: `1px solid ${result.success ? '#badbcc' : '#f5c2c7'}`,
+                    borderRadius: '8px'
+                }}>
+                    <h3>{result.success ? '✅ Éxito' : '❌ Error'}</h3>
+                    <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
+                        {JSON.stringify(result, null, 2)}
+                    </pre>
                 </div>
+            )}
+
+            <div style={{
+                marginTop: '2rem',
+                padding: '1rem',
+                backgroundColor: '#fff3cd',
+                border: '1px solid #ffecb5',
+                borderRadius: '8px'
+            }}>
+                <h4>📋 Instrucciones:</h4>
+                <ol>
+                    <li>Crea una cuenta en <a href="https://resend.com" target="_blank">Resend.com</a></li>
+                    <li>Obtén tu API Key del dashboard</li>
+                    <li>Ve a Vercel → Settings → Environment Variables</li>
+                    <li>Agrega: <code>RESEND_API_KEY</code> con tu API key</li>
+                    <li>Redeploy el proyecto</li>
+                    <li>Vuelve a esta página y haz clic en el botón</li>
+                </ol>
             </div>
         </div>
     );
