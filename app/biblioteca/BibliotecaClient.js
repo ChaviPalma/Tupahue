@@ -6,7 +6,6 @@ import Image from "next/image";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import styles from "./biblioteca.module.css";
-import loanStyles from "./loan-period.module.css";
 import { getLibros, reservarLibro, getCurrentUser } from '@/lib/supabase';
 
 export default function BibliotecaClient() {
@@ -147,13 +146,12 @@ export default function BibliotecaClient() {
                                         {libro.paginas && (
                                             <p className={styles.cardText}>
                                                 <i className="bi bi-file-text"></i> <strong>Páginas:</strong> {libro.paginas}
+                                                {libro.disponible && (
+                                                    <span style={{ marginLeft: '10px' }}>
+                                                        <i className="bi bi-clock-history"></i> <strong>Préstamo:</strong> {libro.paginas < 100 ? '7 días' : '14 días'}
+                                                    </span>
+                                                )}
                                             </p>
-                                        )}
-                                        {libro.disponible && libro.paginas && (
-                                            <div className={loanStyles.loanPeriodInfo}>
-                                                <i className="bi bi-clock-history"></i>
-                                                <span>Préstamo: {libro.paginas < 100 ? '7 días' : '14 días'}</span>
-                                            </div>
                                         )}
                                         {libro.disponible ? (
                                             <button
