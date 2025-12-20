@@ -1,32 +1,46 @@
 import { Resend } from 'resend';
 import { createClient } from '@supabase/supabase-js';
 
-export async function POST() {
-    try {
-        // 1. Verificar variables de entorno
+// Lazy initialization de Resend para evitar errores durante el build
+let resend = null;
+const getResend = () => {
+    if (!resend) {
         if (!process.env.RESEND_API_KEY) {
-            return Response.json({
-                success: false,
-                error: 'RESEND_API_KEY no está configurado'
-            }, { status: 500 });
+            throw new Error('RESEND_API_KEY is not defined');
+        }
+        resend = new Resend(process.env.RESEND_API_KEY);
+    }
+    return resend;
+};
+
+// Lazy initialization de Supabase para evitar errores durante el build
+let supabase = null;
+const getSupabase = () => {
+    if (!supabase) {
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+        const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+        if (!supabaseUrl || !supabaseServiceKey) {
+            throw new Error('Supabase URL or Service Role Key is missing');
         }
 
-        if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
-            return Response.json({
-                success: false,
-                error: 'Variables de Supabase no están configuradas'
-            }, { status: 500 });
+        supabase = createClient(supabaseUrl, supabaseServiceKey);
+    }
+    return supabase;
+};
+
+export async function GET(request) {
+    try {
+        // Verificar que la petición venga del cron job de Vercel
+        const authHeader = request.headers.get('authorization');
+        if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+            return Response.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        // 2. Crear clientes
-        const resend = new Resend(process.env.RESEND_API_KEY);
-        const supabase = createClient(
-            process.env.NEXT_PUBLIC_SUPABASE_URL,
-            process.env.SUPABASE_SERVICE_ROLE_KEY
-        );
+        const supabaseClient = getSupabase();
 
-        // 3. Obtener reservas activas
-        const { data: reservas, error: dbError } = await supabase
+        // Obtener todas las reservas activas
+        const { data: reservas, error: dbError } = await supabaseClient
             .from('reservas')
             .select(`
                 id,
@@ -37,35 +51,27 @@ export async function POST() {
             .eq('estado', 'activa');
 
         if (dbError) {
-            return Response.json({
-                success: false,
-                error: 'Error al consultar reservas',
-                details: dbError.message
-            }, { status: 500 });
+            console.error('Error fetching reservas:', dbError);
+            return Response.json({ error: 'Error fetching reservas' }, { status: 500 });
         }
 
         if (!reservas || reservas.length === 0) {
-            return Response.json({
-                success: true,
-                message: 'No hay reservas activas',
-                emailsSent: 0
-            });
+            return Response.json({ success: true, message: 'No hay reservas activas', emailsSent: 0 });
         }
 
-        // 4. Para cada reserva, obtener datos del libro y usuario
-        const emailsSent = [];
         const now = new Date();
+        const emailsSent = [];
 
         for (const reserva of reservas) {
-            // Obtener libro
-            const { data: libro } = await supabase
+            // Obtener datos del libro
+            const { data: libro } = await supabaseClient
                 .from('libros')
                 .select('titulo, autor, paginas')
                 .eq('id', reserva.libro_id)
                 .single();
 
-            // Obtener usuario
-            const { data: usuario } = await supabase
+            // Obtener datos del usuario
+            const { data: usuario } = await supabaseClient
                 .from('users')
                 .select('email, raw_user_meta_data')
                 .eq('id', reserva.user_id)
@@ -73,9 +79,9 @@ export async function POST() {
 
             if (!libro || !usuario || !usuario.email) continue;
 
-            // Calcular días de préstamo
+            // Calcular días de préstamo según páginas del libro (7 o 14 días)
             const paginas = libro.paginas || 100;
-            const diasPrestamo = paginas < 100 ? 3 : 14;
+            const diasPrestamo = paginas < 100 ? 7 : 14;
 
             // Calcular fecha de vencimiento
             const fechaReserva = new Date(reserva.created_at);
@@ -85,84 +91,75 @@ export async function POST() {
             // Calcular días restantes
             const diasRestantes = Math.ceil((fechaVencimiento - now) / (1000 * 60 * 60 * 24));
 
-            // Decidir si enviar email
-            let debeEnviar = false;
-            let tipoEmail = '';
+            let shouldSendEmail = false;
+            let emailType = '';
 
-            // AMPLIADO: Enviar en cualquiera de estos casos
-            if (diasRestantes >= 3) {
-                debeEnviar = true;
-                tipoEmail = '3 días';
-            } else if (diasRestantes === 2) {
-                debeEnviar = true;
-                tipoEmail = '2 días';
+            // Lógica de recordatorios: 3 días antes, 1 día antes, hoy, o atrasado
+            if (diasRestantes === 3) {
+                shouldSendEmail = true;
+                emailType = '3 días';
             } else if (diasRestantes === 1) {
-                debeEnviar = true;
-                tipoEmail = '1 día';
+                shouldSendEmail = true;
+                emailType = '1 día';
             } else if (diasRestantes === 0) {
-                debeEnviar = true;
-                tipoEmail = 'hoy';
+                shouldSendEmail = true;
+                emailType = 'hoy';
             } else if (diasRestantes < 0) {
-                debeEnviar = true;
-                tipoEmail = 'atrasado';
+                shouldSendEmail = true;
+                emailType = 'atrasado';
             }
 
-            if (debeEnviar) {
-                const nombreUsuario = usuario.raw_user_meta_data?.nombre || 'Usuario';
+            if (shouldSendEmail) {
+                const userName = usuario.raw_user_meta_data?.nombre || 'Usuario';
+                const bookTitle = libro.titulo;
+                const bookAuthor = libro.autor || '';
+
                 let subject = '';
                 let message = '';
 
-                // Generar mensaje según tipo
-                if (tipoEmail === '3 días') {
-                    subject = `Recordatorio: Devolver "${libro.titulo}" en 3 días`;
-                    message = `Hola ${nombreUsuario},\n\nTe recordamos que tienes 3 días para devolver el libro "${libro.titulo}" de ${libro.autor}.\n\nFecha de devolución: ${fechaVencimiento.toLocaleDateString('es-CL')}\n\n¡Gracias!\nBiblioteca Tupahue`;
-                } else if (tipoEmail === '2 días') {
-                    subject = `Recordatorio: Devolver "${libro.titulo}" en 2 días`;
-                    message = `Hola ${nombreUsuario},\n\nTe recordamos que tienes 2 días para devolver el libro "${libro.titulo}" de ${libro.autor}.\n\nFecha de devolución: ${fechaVencimiento.toLocaleDateString('es-CL')}\n\n¡Gracias!\nBiblioteca Tupahue`;
-                } else if (tipoEmail === '1 día') {
-                    subject = `Urgente: Devolver "${libro.titulo}" mañana`;
-                    message = `Hola ${nombreUsuario},\n\n⚠️ Mañana debes devolver el libro "${libro.titulo}" de ${libro.autor}.\n\nFecha de devolución: ${fechaVencimiento.toLocaleDateString('es-CL')}\n\n¡Gracias!\nBiblioteca Tupahue`;
-                } else if (tipoEmail === 'hoy') {
-                    subject = `¡Hoy vence! "${libro.titulo}"`;
-                    message = `Hola ${nombreUsuario},\n\n⏰ Hoy es el último día para devolver "${libro.titulo}" de ${libro.autor}.\n\nFecha de devolución: ${fechaVencimiento.toLocaleDateString('es-CL')}\n\nBiblioteca Tupahue`;
-                } else if (tipoEmail === 'atrasado') {
-                    const diasAtraso = Math.abs(diasRestantes);
-                    subject = `Libro atrasado: "${libro.titulo}"`;
-                    message = `Hola ${nombreUsuario},\n\n❗ El libro "${libro.titulo}" está atrasado ${diasAtraso} día(s).\n\nFecha de devolución era: ${fechaVencimiento.toLocaleDateString('es-CL')}\n\nPor favor devuélvelo pronto.\nBiblioteca Tupahue`;
+                if (emailType === '3 días') {
+                    subject = `Recordatorio: Devolver "${bookTitle}" en 3 días`;
+                    message = `Hola ${userName},\n\nTe recordamos que tienes 3 días para devolver el libro "${bookTitle}" de ${bookAuthor}.\n\nFecha de devolución: ${fechaVencimiento.toLocaleDateString('es-CL')}\n\n¡Gracias por usar nuestra biblioteca!\n\nIglesia Reformada Tupahue`;
+                } else if (emailType === '1 día') {
+                    subject = `Urgente: Devolver "${bookTitle}" mañana`;
+                    message = `Hola ${userName},\n\n⚠️ Te recordamos que mañana debes devolver el libro "${bookTitle}" de ${bookAuthor}.\n\nFecha de devolución: ${fechaVencimiento.toLocaleDateString('es-CL')}\n\n¡Gracias por usar nuestra biblioteca!\n\nIglesia Reformada Tupahue`;
+                } else if (emailType === 'hoy') {
+                    subject = `¡Hoy vence! Devolver "${bookTitle}"`;
+                    message = `Hola ${userName},\n\n⏰ Hoy es el último día para devolver el libro "${bookTitle}" de ${bookAuthor}.\n\nFecha de devolución: ${fechaVencimiento.toLocaleDateString('es-CL')}\n\nPor favor, devuélvelo lo antes posible.\n\nIglesia Reformada Tupahue`;
+                } else if (emailType === 'atrasado') {
+                    const daysLate = Math.abs(diasRestantes);
+                    subject = `Libro atrasado: "${bookTitle}" (${daysLate} días)`;
+                    message = `Hola ${userName},\n\n❗ El libro "${bookTitle}" de ${bookAuthor} está atrasado por ${daysLate} día(s).\n\nFecha de devolución era: ${fechaVencimiento.toLocaleDateString('es-CL')}\n\nPor favor, devuélvelo lo antes posible.\n\nIglesia Reformada Tupahue`;
                 }
 
                 try {
-                    await resend.emails.send({
+                    await getResend().emails.send({
                         from: 'Biblioteca Tupahue <onboarding@resend.dev>',
                         to: [usuario.email],
                         subject: subject,
-                        text: message
+                        text: message,
                     });
 
                     emailsSent.push({
                         email: usuario.email,
-                        libro: libro.titulo,
-                        tipo: tipoEmail,
-                        diasRestantes
+                        book: bookTitle,
+                        type: emailType,
+                        daysUntilDue: diasRestantes
                     });
                 } catch (emailError) {
-                    console.error('Error enviando email:', emailError);
+                    console.error('Error sending email:', emailError);
                 }
             }
         }
 
         return Response.json({
             success: true,
-            message: `Proceso completado. ${emailsSent.length} emails enviados.`,
             emailsSent: emailsSent.length,
-            detalles: emailsSent
+            details: emailsSent
         });
 
     } catch (error) {
-        return Response.json({
-            success: false,
-            error: error.message,
-            stack: error.stack
-        }, { status: 500 });
+        console.error('Error in send-reminders:', error);
+        return Response.json({ error: error.message }, { status: 500 });
     }
 }
