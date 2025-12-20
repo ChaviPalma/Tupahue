@@ -1,3 +1,4 @@
 # Temporalmente ignorar APIs de email hasta que se configure RESEND_API_KEY
-app/api/send-reminders*
-app/api/test-email*
+# COMENTADO PARA PROBAR - Descomentar si hay problemas de build
+# app/api/send-reminders*
+# app/api/test-email*
