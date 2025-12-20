@@ -50,7 +50,7 @@ export default function LoginClient() {
         setLoading(true);
 
         try {
-            const { data, error } = await signIn(formData.email, formData.password);
+            const { data, error } = await signIn(formData.email, formData.password, rememberMe);
 
             if (error) {
                 setError('Email o contraseña incorrectos');
