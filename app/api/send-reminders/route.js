@@ -1,7 +1,14 @@
 import { Resend } from 'resend';
 import { createClient } from '@supabase/supabase-js';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Lazy initialization de Resend para evitar errores durante el build
+let resend = null;
+const getResend = () => {
+    if (!resend) {
+        resend = new Resend(process.env.RESEND_API_KEY);
+    }
+    return resend;
+};
 
 const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -21,7 +28,7 @@ export async function GET(request) {
             .from('reservas')
             .select(`
         *,
-        libros (titulo, autor),
+        libros (titulo, autor, paginas),
         users:user_id (email, raw_user_meta_data)
       `)
             .eq('estado', 'activa');
@@ -37,7 +44,11 @@ export async function GET(request) {
         for (const reserva of reservas) {
             const createdAt = new Date(reserva.created_at);
             const dueDate = new Date(createdAt);
-            dueDate.setDate(dueDate.getDate() + 14); // 14 días para devolver
+
+            // Calcular días de préstamo según páginas del libro
+            const paginas = reserva.libros?.paginas || 100;
+            const diasPrestamo = paginas < 100 ? 7 : 14;
+            dueDate.setDate(dueDate.getDate() + diasPrestamo);
 
             const daysUntilDue = Math.ceil((dueDate - now) / (1000 * 60 * 60 * 24));
 
@@ -83,7 +94,7 @@ export async function GET(request) {
                 }
 
                 try {
-                    await resend.emails.send({
+                    await getResend().emails.send({
                         from: 'Biblioteca Tupahue <biblioteca@tupahue.cl>',
                         to: [reserva.users.email],
                         subject: subject,

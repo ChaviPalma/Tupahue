@@ -1,6 +1,13 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Lazy initialization de Resend para evitar errores durante el build
+let resend = null;
+const getResend = () => {
+    if (!resend) {
+        resend = new Resend(process.env.RESEND_API_KEY);
+    }
+    return resend;
+};
 
 export async function POST(request) {
     try {
@@ -26,7 +33,7 @@ export async function POST(request) {
             message = `Hola ${userName},\n\n❗ El libro "${bookTitle}" de ${bookAuthor} está atrasado por ${daysLate} día(s).\n\nFecha de devolución era: ${dueDate.toLocaleDateString('es-CL')}\n\nPor favor, devuélvelo lo antes posible.\n\nIglesia Reformada Tupahue`;
         }
 
-        const data = await resend.emails.send({
+        const data = await getResend().emails.send({
             from: 'Biblioteca Tupahue <onboarding@resend.dev>', // Usa el dominio de prueba de Resend
             to: [email],
             subject: subject,
