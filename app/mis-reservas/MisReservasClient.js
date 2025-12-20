@@ -70,7 +70,8 @@ export default function MisReservasClient() {
         const fechaDevolucion = new Date(fecha);
 
         // Determinar días de préstamo según cantidad de páginas
-        const diasPrestamo = paginas < 100 ? 7 : 14;
+        // TEMPORAL: Cambiado de 7 a 3 días para probar recordatorios
+        const diasPrestamo = paginas < 100 ? 3 : 14;
         fechaDevolucion.setDate(fecha.getDate() + diasPrestamo);
 
         const hoy = new Date();
