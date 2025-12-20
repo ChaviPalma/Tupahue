@@ -187,8 +187,16 @@ export default function MisReservasClient() {
                                                     <p className={styles.infoText}>
                                                         <i className="bi bi-tag"></i> <strong>Categoría:</strong> {reserva.libros.categoria}
                                                     </p>
+                                                    {reserva.libros.paginas && (
+                                                        <p className={styles.infoText}>
+                                                            <i className="bi bi-file-text"></i> <strong>Páginas:</strong> {reserva.libros.paginas}
+                                                        </p>
+                                                    )}
                                                     <p className={styles.infoText}>
                                                         <i className="bi bi-calendar-event"></i> <strong>Fecha de devolución:</strong> {fechaDevolucion}
+                                                    </p>
+                                                    <p className={styles.infoText}>
+                                                        <i className="bi bi-clock-history"></i> <strong>Período de préstamo:</strong> {diasPrestamo} días
                                                     </p>
 
                                                     <div className={`${styles.diasRestantes} ${estaAtrasado ? styles.atrasadoText : esUrgente ? styles.urgenteText : ''}`}>
