@@ -65,10 +65,13 @@ export default function MisReservasClient() {
         router.push('/');
     };
 
-    const calcularDiasRestantes = (fechaReserva) => {
+    const calcularDiasRestantes = (fechaReserva, paginas) => {
         const fecha = new Date(fechaReserva);
         const fechaDevolucion = new Date(fecha);
-        fechaDevolucion.setDate(fecha.getDate() + 14); // 14 días para devolver
+
+        // Determinar días de préstamo según cantidad de páginas
+        const diasPrestamo = paginas < 100 ? 7 : 14;
+        fechaDevolucion.setDate(fecha.getDate() + diasPrestamo);
 
         const hoy = new Date();
         const diferencia = fechaDevolucion - hoy;
@@ -76,7 +79,8 @@ export default function MisReservasClient() {
 
         return {
             dias: diasRestantes,
-            fechaDevolucion: fechaDevolucion.toLocaleDateString('es-CL')
+            fechaDevolucion: fechaDevolucion.toLocaleDateString('es-CL'),
+            diasPrestamo: diasPrestamo
         };
     };
 
@@ -153,7 +157,7 @@ export default function MisReservasClient() {
                             {reservasActivas.length > 0 ? (
                                 <div className={styles.reservasGrid}>
                                     {reservasActivas.map(reserva => {
-                                        const { dias, fechaDevolucion } = calcularDiasRestantes(reserva.fecha_reserva);
+                                        const { dias, fechaDevolucion, diasPrestamo } = calcularDiasRestantes(reserva.fecha_reserva, reserva.libros.paginas);
                                         const esUrgente = dias <= 3;
                                         const estaAtrasado = dias < 0;
 

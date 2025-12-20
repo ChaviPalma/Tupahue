@@ -37,21 +37,23 @@ export default function BibliotecaClient() {
         setLoading(false);
     };
 
-    const handleReservar = async (libroId) => {
+    const handleReservar = async (libro) => {
         if (!user) {
             alert('Debes iniciar sesión para reservar un libro');
             router.push('/login');
             return;
         }
 
-        setReservando(libroId);
+        setReservando(libro.id);
 
-        const { data, error } = await reservarLibro(libroId, user.id);
+        const { data, error } = await reservarLibro(libro.id, user.id);
 
         if (error) {
             alert(error.message || 'Error al reservar el libro');
         } else {
-            alert('¡Libro reservado exitosamente! Tienes 14 días para devolverlo.');
+            // Calcular días de préstamo según páginas
+            const diasPrestamo = libro.paginas < 100 ? 7 : 14;
+            alert(`¡Libro reservado exitosamente! Tienes ${diasPrestamo} días para devolverlo.`);
             // Recargar libros
             cargarDatos();
         }
@@ -143,7 +145,7 @@ export default function BibliotecaClient() {
                                         </p>
                                         {libro.disponible ? (
                                             <button
-                                                onClick={() => handleReservar(libro.id)}
+                                                onClick={() => handleReservar(libro)}
                                                 className={styles.btnPrimary}
                                                 disabled={reservando === libro.id}
                                             >
