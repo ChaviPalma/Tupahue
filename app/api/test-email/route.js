@@ -1,9 +1,12 @@
 import { Resend } from 'resend';
 
-// Lazy initialization de Resend para evitar errores durante el build
+// Lazy initialization de Resend
 let resend = null;
 const getResend = () => {
     if (!resend) {
+        if (!process.env.RESEND_API_KEY) {
+            throw new Error('RESEND_API_KEY is not defined');
+        }
         resend = new Resend(process.env.RESEND_API_KEY);
     }
     return resend;
@@ -53,7 +56,7 @@ export async function POST(request) {
         console.error('Error sending test email:', error);
         return Response.json({
             error: error.message,
-            details: error
+            details: error.toString()
         }, { status: 500 });
     }
 }
