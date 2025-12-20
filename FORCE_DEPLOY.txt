@@ -1,5 +1,0 @@
-# Force Deployment
-
-Este archivo existe solo para forzar un nuevo deployment en Vercel.
-
-Timestamp: 2025-12-20 17:49:00
