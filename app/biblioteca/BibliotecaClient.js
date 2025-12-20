@@ -145,12 +145,12 @@ export default function BibliotecaClient() {
                                         </p>
                                         {libro.paginas && (
                                             <p className={styles.cardText}>
-                                                <i className="bi bi-file-text"></i> <strong>Páginas:</strong> {libro.paginas}
-                                                {libro.disponible && (
-                                                    <span style={{ marginLeft: '10px' }}>
-                                                        <i className="bi bi-clock-history"></i> <strong>Préstamo:</strong> {libro.paginas < 100 ? '7 días' : '14 días'}
-                                                    </span>
-                                                )}
+                                                <strong>Páginas:</strong> {libro.paginas}
+                                            </p>
+                                        )}
+                                        {libro.disponible && libro.paginas && (
+                                            <p className={styles.cardText}>
+                                                <strong>Préstamo:</strong> {libro.paginas < 100 ? '7 días' : '14 días'}
                                             </p>
                                         )}
                                         {libro.disponible ? (
