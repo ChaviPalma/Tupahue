@@ -19,26 +19,6 @@ export default function Navbar({ user, onLogout }) {
         setIsMenuOpen(false);
     }, [pathname]);
 
-    // Cerrar menú al hacer clic fuera
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            const navbar = document.getElementById('navbarNav');
-            const toggler = document.getElementById('navbarToggle');
-
-            if (navbar && toggler && !navbar.contains(event.target) && !toggler.contains(event.target)) {
-                setIsMenuOpen(false);
-            }
-        };
-
-        if (isMenuOpen) {
-            document.addEventListener('click', handleClickOutside);
-        }
-
-        return () => {
-            document.removeEventListener('click', handleClickOutside);
-        };
-    }, [isMenuOpen]);
-
     return (
         <nav className={`${styles.navbar} ${styles.bgBlue}`}>
             <div className={styles.navbarContainer}>
