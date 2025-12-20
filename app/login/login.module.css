@@ -1,0 +1,483 @@
+/* ===== CONTENEDOR PRINCIPAL ===== */
+.pageContainer {
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    padding-top: 100px;
+}
+
+/* ===== COLORES ===== */
+.bgBlue {
+    background-color: #3c4d6b !important;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    min-height: 80px;
+    padding: 0.5rem 1.5rem;
+    background-color: #3c4d6b;
+}
+
+.navbarContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.navbarBrand {
+    display: flex;
+    align-items: center;
+}
+
+.logoNavbar {
+    height: 150px;
+    width: auto;
+    object-fit: contain;
+}
+
+.navbarToggler {
+    display: none;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 0.5rem;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.navbarTogglerIcon {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background-color: white;
+    position: relative;
+}
+
+.navbarTogglerIcon::before,
+.navbarTogglerIcon::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 2px;
+    background-color: white;
+    left: 0;
+}
+
+.navbarTogglerIcon::before {
+    top: -8px;
+}
+
+.navbarTogglerIcon::after {
+    bottom: -8px;
+}
+
+.navbarCollapse {
+    display: flex;
+    align-items: center;
+}
+
+.navbarNav {
+    display: flex;
+    list-style: none;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.navItem {
+    list-style: none;
+}
+
+.navLink {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s ease;
+    border-radius: 4px;
+    display: block;
+}
+
+.navLink:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.navLink.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    font-weight: 600;
+}
+
+/* ===== BOTÓN LOGIN EN NAVBAR ===== */
+.btnLogin {
+    background-color: #ffc107;
+    color: #000;
+    border-radius: 8px;
+    padding: 6px 18px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 0.5rem;
+}
+
+.btnLogin:hover {
+    background-color: #e0a800;
+    transform: translateY(-2px);
+    color: #000;
+}
+
+.btnLogin.active {
+    background-color: #e0a800;
+}
+
+/* ===== LOGIN SECTION ===== */
+.loginSection {
+    min-height: calc(100vh - 100px - 200px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 1rem;
+}
+
+.container {
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* ===== LOGIN CARD ===== */
+.loginCard {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.loginCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+}
+
+.loginHeader {
+    text-align: center;
+    padding: 2.5rem 2rem 2rem;
+    background-color: white;
+    border-bottom: 3px solid #3c4d6b;
+}
+
+.logoContainer {
+    margin-bottom: 1.5rem;
+}
+
+.loginLogo {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+.loginTitle {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #3c4d6b;
+}
+
+.loginSubtitle {
+    font-size: 1rem;
+    color: #666;
+    margin: 0;
+}
+
+/* ===== FORM ===== */
+.loginForm {
+    padding: 2rem;
+}
+
+.formGroup {
+    margin-bottom: 1.5rem;
+}
+
+.formLabel {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.formLabel i {
+    margin-right: 0.5rem;
+    color: #3c4d6b;
+}
+
+.formInput {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.formInput:focus {
+    border-color: #3c4d6b;
+    box-shadow: 0 0 0 3px rgba(60, 77, 107, 0.1);
+}
+
+.passwordContainer {
+    position: relative;
+}
+
+.togglePassword {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.togglePassword:hover {
+    color: #3c4d6b;
+}
+
+/* ===== FORM OPTIONS ===== */
+.formOptions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.checkboxLabel {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.checkbox {
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+}
+
+.forgotPassword {
+    color: #3241BD;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.forgotPassword:hover {
+    color: #3c4d6b;
+    text-decoration: underline;
+}
+
+/* ===== SUBMIT BUTTON ===== */
+.submitButton {
+    width: 100%;
+    padding: 1rem;
+    background-color: #1e5577;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submitButton:hover {
+    background-color: #17425d;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(30, 85, 119, 0.3);
+}
+
+.submitButton:active {
+    transform: translateY(0);
+}
+
+.submitButton i {
+    margin-right: 0.5rem;
+}
+
+/* ===== LOGIN FOOTER ===== */
+.loginFooter {
+    text-align: center;
+    padding: 1.5rem 2rem 2rem;
+    background-color: #f8f9fa;
+    border-top: 1px solid #e0e0e0;
+}
+
+.loginFooter p {
+    margin: 0;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.registerLink {
+    color: #3241BD;
+    margin-top: auto;
+}
+
+.footerContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footerSection {
+    text-align: center;
+}
+
+.footerTitle {
+    font-weight: bold;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.footerLink {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 0.5rem;
+    transition: color 0.2s ease;
+    display: inline-block;
+}
+
+.footerLink:hover {
+    color: #a7c2d3;
+}
+
+.socialLinks {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.footerDivider {
+    border-color: rgba(255, 255, 255, 0.3);
+    margin: 2rem 0;
+    border-width: 1px;
+}
+
+.footerCopyright {
+    text-align: center;
+}
+
+.footerCopyright p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 767.98px) {
+    .logoNavbar {
+        height: 50px;
+    }
+
+    .navbarToggler {
+        display: block;
+    }
+
+    .navbarCollapse {
+        display: none;
+        width: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #3c4d6b;
+        padding: 1rem;
+    }
+
+    .navbarCollapse.show {
+        display: block;
+    }
+
+    .navbarNav {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.5rem;
+    }
+
+    .navLink {
+        width: 100%;
+        text-align: center;
+    }
+
+    .btnLogin {
+        width: 100%;
+        text-align: center;
+        margin-left: 0;
+        margin-top: 0.5rem;
+    }
+
+    .pageContainer {
+        padding-top: 70px;
+    }
+
+    .loginSection {
+        padding: 2rem 1rem;
+    }
+
+    .loginCard {
+        border-radius: 12px;
+    }
+
+    .loginHeader {
+        padding: 2rem 1.5rem 1.5rem;
+    }
+
+    .loginTitle {
+        font-size: 1.5rem;
+    }
+
+    .loginForm {
+        padding: 1.5rem;
+    }
+
+    .formOptions {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .footerContainer {
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 575px) {
+    .loginTitle {
+        font-size: 1.3rem;
+    }
+
+    .loginSubtitle {
+        font-size: 0.9rem;
+    }
+
+    .submitButton {
+        font-size: 1rem;
+    }
+}

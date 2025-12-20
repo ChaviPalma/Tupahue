@@ -1,0 +1,439 @@
+/* ===== CONTENEDOR PRINCIPAL ===== */
+.pageContainer {
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    padding-top: 100px;
+    text-align: center;
+}
+
+/* ===== COLORES ===== */
+.bgBlue {
+    background-color: #3c4d6b !important;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    min-height: 80px;
+    padding: 0.5rem 1.5rem;
+    background-color: #3c4d6b;
+}
+
+.navbarContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.navbarBrand {
+    display: flex;
+    align-items: center;
+}
+
+.logoNavbar {
+    height: 150px;
+    width: auto;
+    object-fit: contain;
+}
+
+.navbarToggler {
+    display: none;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 0.5rem;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.navbarTogglerIcon {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background-color: white;
+    position: relative;
+}
+
+.navbarTogglerIcon::before,
+.navbarTogglerIcon::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 2px;
+    background-color: white;
+    left: 0;
+}
+
+.navbarTogglerIcon::before {
+    top: -8px;
+}
+
+.navbarTogglerIcon::after {
+    bottom: -8px;
+}
+
+.navbarCollapse {
+    display: flex;
+    align-items: center;
+}
+
+.navbarNav {
+    display: flex;
+    list-style: none;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.navItem {
+    list-style: none;
+}
+
+.navLink {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s ease;
+    border-radius: 4px;
+    display: block;
+}
+
+.navLink:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.navLink.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    font-weight: 600;
+}
+
+/* ===== BOTÓN LOGIN EN NAVBAR ===== */
+.btnLogin {
+    background-color: #ffc107;
+    color: #000;
+    border-radius: 8px;
+    padding: 6px 18px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 0.5rem;
+}
+
+.btnLogin:hover {
+    background-color: #e0a800;
+    transform: translateY(-2px);
+    color: #000;
+}
+
+/* ===== HERO ===== */
+.hero {
+    height: 500px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===== CONTENEDOR GENERAL ===== */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* ===== TÍTULOS ===== */
+.mainTitle {
+    font-weight: bold;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    color: #333;
+}
+
+.sectionTitle {
+    font-weight: bold;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    color: #333;
+}
+
+.subtitle {
+    font-weight: bold;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.sectionSubtitle {
+    font-weight: bold;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    color: #333;
+    text-align: left;
+}
+
+/* ===== SECCIONES ===== */
+.misionVisionSection {
+    padding: 5rem 1rem;
+    background-color: white;
+}
+
+.creenciasSection {
+    padding: 5rem 1rem;
+    background-color: #f8f9fa;
+}
+
+.declaracionSection {
+    padding: 5rem 1rem;
+    background-color: white;
+}
+
+/* ===== CONTENIDO ===== */
+.contentBox {
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    text-align: center;
+}
+
+.textMuted {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+/* ===== DIVIDER ===== */
+.divider {
+    border: 0;
+    border-top: 1px solid #ddd;
+    margin: 1.5rem auto 3rem;
+    max-width: 800px;
+}
+
+/* ===== DECLARACIÓN CARD ===== */
+.declaracionCard {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.declaracionCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+}
+
+.declaracionBody {
+    padding: 2rem;
+    text-align: justify;
+    max-height: 700px;
+    overflow-y: auto;
+}
+
+.declaracionTitle {
+    font-weight: bold;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    color: #333;
+    text-align: center;
+}
+
+.declaracionSubtitle {
+    font-weight: bold;
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+    color: #333;
+    text-align: center;
+}
+
+/* ===== LISTAS ===== */
+.orderedList {
+    text-align: left;
+    line-height: 1.8;
+    color: #666;
+    padding-left: 1.5rem;
+}
+
+.orderedList li {
+    margin-bottom: 1rem;
+}
+
+.orderedList strong {
+    color: #333;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    background-color: #3c4d6b;
+    color: #fff;
+    padding: 3rem 1rem;
+    text-align: center;
+}
+
+.footerContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footerSection {
+    text-align: center;
+}
+
+.footerTitle {
+    font-weight: bold;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.footerLink {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 0.5rem;
+    transition: color 0.2s ease;
+    display: inline-block;
+}
+
+.footerLink:hover {
+    color: #a7c2d3;
+}
+
+.socialLinks {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.footerDivider {
+    border-color: rgba(255, 255, 255, 0.3);
+    margin: 2rem 0;
+    border-width: 1px;
+}
+
+.footerCopyright {
+    text-align: center;
+}
+
+.footerCopyright p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 991px) {
+    .mainTitle {
+        font-size: 2rem;
+    }
+
+    .sectionTitle {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .logoNavbar {
+        height: 50px;
+    }
+
+    .navbarToggler {
+        display: block;
+    }
+
+    .navbarCollapse {
+        display: none;
+        width: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #3c4d6b;
+        padding: 1rem;
+    }
+
+    .navbarCollapse.show {
+        display: block;
+    }
+
+    .navbarNav {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.5rem;
+    }
+
+    .navLink {
+        width: 100%;
+        text-align: center;
+    }
+
+    .btnLogin {
+        width: 100%;
+        text-align: center;
+        margin-left: 0;
+        margin-top: 0.5rem;
+    }
+
+    .pageContainer {
+        padding-top: 70px;
+    }
+
+    .hero {
+        height: 300px;
+    }
+
+    .mainTitle {
+        font-size: 1.8rem;
+    }
+
+    .sectionTitle {
+        font-size: 1.4rem;
+    }
+
+    .declaracionBody {
+        padding: 1.5rem;
+        max-height: 500px;
+    }
+}
+
+@media (max-width: 575px) {
+    .mainTitle {
+        font-size: 1.5rem;
+    }
+
+    .sectionTitle {
+        font-size: 1.3rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .declaracionTitle {
+        font-size: 1.4rem;
+    }
+
+    .declaracionSubtitle {
+        font-size: 1.2rem;
+    }
+
+    .footerContainer {
+        gap: 2rem;
+    }
+}

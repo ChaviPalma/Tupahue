@@ -1,0 +1,350 @@
+/* Reutiliza estilos de biblioteca */
+.pageContainer {
+    composes: pageContainer from '../biblioteca/biblioteca.module.css';
+}
+
+.navbar {
+    composes: navbar from '../biblioteca/biblioteca.module.css';
+}
+
+.bgBlue {
+    composes: bgBlue from '../biblioteca/biblioteca.module.css';
+}
+
+.navbarContainer {
+    composes: navbarContainer from '../biblioteca/biblioteca.module.css';
+}
+
+.navbarBrand {
+    composes: navbarBrand from '../biblioteca/biblioteca.module.css';
+}
+
+.logoNavbar {
+    composes: logoNavbar from '../biblioteca/biblioteca.module.css';
+}
+
+.navbarCollapse {
+    composes: navbarCollapse from '../biblioteca/biblioteca.module.css';
+}
+
+.navbarNav {
+    composes: navbarNav from '../biblioteca/biblioteca.module.css';
+}
+
+.navItem {
+    composes: navItem from '../biblioteca/biblioteca.module.css';
+}
+
+.navLink {
+    composes: navLink from '../biblioteca/biblioteca.module.css';
+}
+
+.footer {
+    composes: footer from '../biblioteca/biblioteca.module.css';
+}
+
+.footerContainer {
+    composes: footerContainer from '../biblioteca/biblioteca.module.css';
+}
+
+.footerSection {
+    composes: footerSection from '../biblioteca/biblioteca.module.css';
+}
+
+.footerTitle {
+    composes: footerTitle from '../biblioteca/biblioteca.module.css';
+}
+
+.footerLink {
+    composes: footerLink from '../biblioteca/biblioteca.module.css';
+}
+
+.socialLinks {
+    composes: socialLinks from '../biblioteca/biblioteca.module.css';
+}
+
+.footerDivider {
+    composes: footerDivider from '../biblioteca/biblioteca.module.css';
+}
+
+.footerCopyright {
+    composes: footerCopyright from '../biblioteca/biblioteca.module.css';
+}
+
+/* Estilos específicos */
+.mainContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+    min-height: calc(100vh - 200px);
+}
+
+.headerSection {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.pageTitle {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.userInfo {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+.section {
+    margin-bottom: 4rem;
+}
+
+.sectionTitle {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #3c4d6b;
+    margin-bottom: 2rem;
+    border-bottom: 3px solid #3c4d6b;
+    padding-bottom: 0.5rem;
+}
+
+.reservasGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.reservaCard {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.reservaCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+}
+
+.reservaCard.atrasado {
+    border: 2px solid #dc3545;
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+
+.libroTitulo {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+    flex: 1;
+}
+
+.cardBody {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.infoText {
+    margin: 0;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.diasRestantes {
+    background-color: #e7f3ff;
+    color: #0066cc;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+
+.diasRestantes.urgenteText {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.diasRestantes.atrasadoText {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.badgeSuccess {
+    background-color: #28a745;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.badgeWarning {
+    background-color: #ffc107;
+    color: #000;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.badgeDanger {
+    background-color: #dc3545;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.badgeDevuelto {
+    background-color: #6c757d;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.btnDevolver {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+.btnDevolver:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+.btnDevolver:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btnLogout {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btnLogout:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+}
+
+.emptyState {
+    text-align: center;
+    padding: 4rem 2rem;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+}
+
+.emptyState i {
+    font-size: 4rem;
+    color: #ccc;
+    margin-bottom: 1rem;
+}
+
+.emptyState p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.btnPrimary {
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.btnPrimary:hover {
+    background-color: #0b5ed7;
+    transform: translateY(-2px);
+}
+
+.historialList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.historialItem {
+    background: white;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.historialInfo h4 {
+    margin: 0 0 0.5rem 0;
+    color: #333;
+    font-size: 1.1rem;
+}
+
+.historialMeta {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.loadingMessage {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+    padding: 3rem;
+}
+
+@media (max-width: 767px) {
+    .reservasGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .pageTitle {
+        font-size: 2rem;
+    }
+
+    .sectionTitle {
+        font-size: 1.5rem;
+    }
+
+    .historialItem {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+}

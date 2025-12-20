@@ -1,0 +1,160 @@
+/* Reutiliza todos los estilos de login */
+.pageContainer {
+    composes: pageContainer from '../login/login.module.css';
+}
+
+.navbar {
+    composes: navbar from '../login/login.module.css';
+}
+
+.bgBlue {
+    composes: bgBlue from '../login/login.module.css';
+}
+
+.navbarContainer {
+    composes: navbarContainer from '../login/login.module.css';
+}
+
+.navbarBrand {
+    composes: navbarBrand from '../login/login.module.css';
+}
+
+.logoNavbar {
+    composes: logoNavbar from '../login/login.module.css';
+}
+
+.navbarCollapse {
+    composes: navbarCollapse from '../login/login.module.css';
+}
+
+.navbarNav {
+    composes: navbarNav from '../login/login.module.css';
+}
+
+.navItem {
+    composes: navItem from '../login/login.module.css';
+}
+
+.navLink {
+    composes: navLink from '../login/login.module.css';
+}
+
+.btnLogin {
+    composes: btnLogin from '../login/login.module.css';
+}
+
+.active {
+    composes: active from '../login/login.module.css';
+}
+
+.registroSection {
+    composes: loginSection from '../login/login.module.css';
+}
+
+.container {
+    composes: container from '../login/login.module.css';
+}
+
+.registroCard {
+    composes: loginCard from '../login/login.module.css';
+}
+
+.registroHeader {
+    composes: loginHeader from '../login/login.module.css';
+}
+
+.logoContainer {
+    composes: logoContainer from '../login/login.module.css';
+}
+
+.registroLogo {
+    composes: loginLogo from '../login/login.module.css';
+}
+
+.registroTitle {
+    composes: loginTitle from '../login/login.module.css';
+}
+
+.registroSubtitle {
+    composes: loginSubtitle from '../login/login.module.css';
+}
+
+.registroForm {
+    composes: loginForm from '../login/login.module.css';
+}
+
+.formGroup {
+    composes: formGroup from '../login/login.module.css';
+}
+
+.formLabel {
+    composes: formLabel from '../login/login.module.css';
+}
+
+.formInput {
+    composes: formInput from '../login/login.module.css';
+}
+
+.passwordContainer {
+    composes: passwordContainer from '../login/login.module.css';
+}
+
+.togglePassword {
+    composes: togglePassword from '../login/login.module.css';
+}
+
+.submitButton {
+    composes: submitButton from '../login/login.module.css';
+}
+
+.registroFooter {
+    composes: loginFooter from '../login/login.module.css';
+}
+
+.loginLink {
+    composes: registerLink from '../login/login.module.css';
+}
+
+.footer {
+    composes: footer from '../login/login.module.css';
+}
+
+.footerContainer {
+    composes: footerContainer from '../login/login.module.css';
+}
+
+.footerSection {
+    composes: footerSection from '../login/login.module.css';
+}
+
+.footerTitle {
+    composes: footerTitle from '../login/login.module.css';
+}
+
+.footerLink {
+    composes: footerLink from '../login/login.module.css';
+}
+
+.socialLinks {
+    composes: socialLinks from '../login/login.module.css';
+}
+
+.footerDivider {
+    composes: footerDivider from '../login/login.module.css';
+}
+
+.footerCopyright {
+    composes: footerCopyright from '../login/login.module.css';
+}
+
+.errorMessage {
+    background-color: #fee;
+    color: #c33;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}

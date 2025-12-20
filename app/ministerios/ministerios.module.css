@@ -1,0 +1,441 @@
+/* ===== CONTENEDOR PRINCIPAL ===== */
+.pageContainer {
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    padding-top: 100px;
+}
+
+/* ===== COLORES ===== */
+.bgBlue {
+    background-color: #3c4d6b !important;
+}
+
+.textWhite {
+    color: #fff !important;
+}
+
+.textBlue {
+    color: #3241BD !important;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    min-height: 80px;
+    padding: 0.5rem 1.5rem;
+    background-color: #3c4d6b;
+}
+
+.navbarContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.navbarBrand {
+    display: flex;
+    align-items: center;
+}
+
+.logoNavbar {
+    height: 150px;
+    width: auto;
+    object-fit: contain;
+}
+
+.navbarToggler {
+    display: none;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 0.5rem;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.navbarTogglerIcon {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background-color: white;
+    position: relative;
+}
+
+.navbarTogglerIcon::before,
+.navbarTogglerIcon::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 2px;
+    background-color: white;
+    left: 0;
+}
+
+.navbarTogglerIcon::before {
+    top: -8px;
+}
+
+.navbarTogglerIcon::after {
+    bottom: -8px;
+}
+
+.navbarCollapse {
+    display: flex;
+    align-items: center;
+}
+
+.navbarNav {
+    display: flex;
+    list-style: none;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.navItem {
+    list-style: none;
+}
+
+.navLink {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s ease;
+    border-radius: 4px;
+    display: block;
+}
+
+.navLink:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.navLink.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    font-weight: 600;
+}
+
+/* ===== BOTÓN LOGIN EN NAVBAR ===== */
+.btnLogin {
+    background-color: #ffc107;
+    color: #000;
+    border-radius: 8px;
+    padding: 6px 18px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 0.5rem;
+}
+
+.btnLogin:hover {
+    background-color: #e0a800;
+    transform: translateY(-2px);
+    color: #000;
+}
+
+/* ===== HERO ===== */
+.hero {
+    height: 500px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.heroTitle {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+/* ===== CONTENEDOR GENERAL ===== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.sectionTitle {
+    font-weight: bold;
+    margin-bottom: 3rem;
+    font-size: 2rem;
+    color: #333;
+    text-align: center;
+}
+
+/* ===== SECCIÓN PASTORAL ===== */
+.pastoralSection {
+    background-color: #f8f9fa;
+    padding: 5rem 1rem;
+}
+
+.pastoralGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    justify-items: center;
+}
+
+.pastoralCard {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 400px;
+    width: 100%;
+}
+
+.pastoralCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+}
+
+.pastoralImageContainer {
+    width: 100%;
+    height: 350px;
+    overflow: hidden;
+}
+
+.pastoralImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px 15px 0 0;
+}
+
+.cardBody {
+    padding: 2rem;
+    text-align: center;
+}
+
+.cardTitle {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.cardText {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* ===== SECCIÓN DE MINISTERIOS ===== */
+.ministeriosSection {
+    background-color: white;
+    padding: 5rem 1rem;
+}
+
+.ministeriosGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.ministerioCard {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ministerioCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+}
+
+.ministerioIcon {
+    font-size: 3rem;
+    color: #3241BD;
+    margin-bottom: 1rem;
+}
+
+/* ===== ENCARGADO ===== */
+.encargado {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e0e0e0;
+}
+
+.encargadoNombre {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #333;
+    margin: 0;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    background-color: #3c4d6b;
+    color: #fff;
+    padding: 3rem 1rem;
+    text-align: center;
+}
+
+.footerContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footerSection {
+    text-align: center;
+}
+
+.footerTitle {
+    font-weight: bold;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.footerLink {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 0.5rem;
+    transition: color 0.2s ease;
+    display: inline-block;
+}
+
+.footerLink:hover {
+    color: #a7c2d3;
+}
+
+.socialLinks {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.footerDivider {
+    border-color: rgba(255, 255, 255, 0.3);
+    margin: 2rem 0;
+    border-width: 1px;
+}
+
+.footerCopyright {
+    text-align: center;
+}
+
+.footerCopyright p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 991px) {
+    .heroTitle {
+        font-size: 2rem;
+    }
+
+    .pastoralGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .ministeriosGrid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 767.98px) {
+    .logoNavbar {
+        height: 50px;
+    }
+
+    .navbarToggler {
+        display: block;
+    }
+
+    .navbarCollapse {
+        display: none;
+        width: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #3c4d6b;
+        padding: 1rem;
+    }
+
+    .navbarCollapse.show {
+        display: block;
+    }
+
+    .navbarNav {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.5rem;
+    }
+
+    .navLink {
+        width: 100%;
+        text-align: center;
+    }
+
+    .btnLogin {
+        width: 100%;
+        text-align: center;
+        margin-left: 0;
+        margin-top: 0.5rem;
+    }
+
+    .pageContainer {
+        padding-top: 70px;
+    }
+
+    .hero {
+        height: 300px;
+    }
+
+    .heroTitle {
+        font-size: 1.8rem;
+        padding: 0 1rem;
+    }
+
+    .sectionTitle {
+        font-size: 1.6rem;
+    }
+
+    .ministeriosGrid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 575px) {
+    .heroTitle {
+        font-size: 1.5rem;
+    }
+
+    .sectionTitle {
+        font-size: 1.4rem;
+    }
+
+    .cardTitle {
+        font-size: 1rem;
+    }
+
+    .cardText {
+        font-size: 0.85rem;
+    }
+
+    .footerContainer {
+        gap: 2rem;
+    }
+}
