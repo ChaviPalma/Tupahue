@@ -14,6 +14,16 @@ export default function TestEmailSimplePage() {
         try {
             const response = await fetch('/api/test-email', {
                 method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: 'test@example.com', // Cambia esto por tu email real
+                    userName: 'Usuario de Prueba',
+                    bookTitle: 'El Peregrino',
+                    bookAuthor: 'John Bunyan',
+                    daysUntilDue: 3 // Prueba con 3 días
+                })
             });
 
             const text = await response.text();
