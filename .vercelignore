@@ -1,4 +1,4 @@
 # Temporalmente ignorar APIs de email hasta que se configure RESEND_API_KEY
-# COMENTADO PARA PROBAR - Descomentar si hay problemas de build
-# app/api/send-reminders*
+# El API send-reminders causa errores de build porque requiere SUPABASE_SERVICE_ROLE_KEY
+app/api/send-reminders
 # app/api/test-email*
