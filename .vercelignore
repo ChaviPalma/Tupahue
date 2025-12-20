@@ -1,4 +1,3 @@
-# Temporalmente ignorar APIs de email hasta que se configure RESEND_API_KEY
-# El API send-reminders causa errores de build porque requiere SUPABASE_SERVICE_ROLE_KEY
-app/api/send-reminders
-# app/api/test-email*
+# .vercelignore
+# Ya no ignoramos las APIs porque implementamos lazy initialization
+# para evitar errores de build por falta de variables de entorno.
