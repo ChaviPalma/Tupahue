@@ -27,20 +27,17 @@ export default function NosotrosClient() {
 
                     <div className={styles.contentBox}>
                         <p className={styles.textMuted}>
-                            Personas que expresan la misma fe, reciben el mismo señor, creen en su nombre y fueron
-                            llamadas a hacer parte de una nueva familia donde están todos aquellos que hacen la voluntad
-                            del Padre.<br />
-                            Juan 1:12<br />
-                            Mateo 12:50<br />
-                            Una iglesia en la ciudad y una iglesia para la ciudad: somos parte de la familia de Dios en Puerto Montt.
+                            Personas que expresan la misma fe, reciben el mismo Señor, creen en su nombre y fueron
+                            llamadas a hacer parte de <strong className={styles.textHighlight}>La Iglesia Universal</strong> donde están todos aquellos que hacen la voluntad
+                            del Padre.
                         </p>
                     </div>
 
                     <div className={styles.contentBox}>
                         <h5 className={styles.subtitle}>Visión</h5>
                         <p className={styles.textMuted}>
-                            Ser una familia compuesta por discípulos diversos que orientan integralmente su vida de
-                            acuerdo con el evangelio, buscando ser el verdadero Jesús conocido en Puerto Montt y
+                            Ser una <strong className={styles.textHighlight}>Iglesia</strong> compuesta por discípulos diversos que orientan integralmente su vida de
+                            acuerdo con el evangelio, buscando <strong className={styles.textHighlight}>ser</strong> el verdadero Jesús conocido en Puerto Montt y
                             alrededor del mundo para la gloria de Dios.
                         </p>
                     </div>
@@ -48,10 +45,13 @@ export default function NosotrosClient() {
                     <div className={styles.contentBox}>
                         <h5 className={styles.subtitle}>Misión</h5>
                         <p className={styles.textMuted}>
-                            La iglesia Power existe para anunciar el evangelio en Puerto Montt y hasta el fin de la tierra,
-                            haciendo un don a Dios en su propósito de tornar nuevas todas las cosas a través de la
+                            La iglesia <strong className={styles.textHighlight}>Tupahue</strong> existe para anunciar el evangelio en Puerto Montt y hasta el fin de la tierra, <strong className={styles.textHighlight}>Uniéndonos</strong> a Dios en su propósito de <strong className={styles.textHighlight}>Hacer</strong> nuevas todas las cosas a través de la
                             persona y obra de Jesús. Nos reunimos semanalmente para proclamar las buenas nuevas
-                            del evangelio y vivir el evangelio en nuestra comunidad.
+                            del evangelio y <strong className={styles.textHighlight}>responder en adoración, recordando la historia de
+                                la redención, y renovando nuestro pacto con Dios.
+                                Nos reunimos durante la semana, para reuniones de
+                                oración, en casas, buscando vivir y anunciar el
+                                evangelio.</strong>
                         </p>
                     </div>
                 </div>
