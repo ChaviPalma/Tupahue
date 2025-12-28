@@ -147,9 +147,10 @@
 }
 
 .heroTitle {
-  font-size: 3rem;
+  font-size: 4.5rem;
   font-weight: bold;
   font-family: 'Montserrat', sans-serif;
+  line-height: 1.2;
 }
 
 /* ===== MISIÓN Y VISIÓN ===== */
@@ -401,7 +402,7 @@
 /* ===== RESPONSIVE ===== */
 @media (max-width: 991px) {
   .heroTitle {
-    font-size: 2.2rem;
+    font-size: 3rem;
   }
 
   .misionText {
@@ -467,14 +468,14 @@
   }
 
   .heroTitle {
-    font-size: 1.8rem;
+    font-size: 2.5rem;
     padding: 0 1rem;
   }
 }
 
 @media (max-width: 575px) {
   .heroTitle {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
 
   .misionText {

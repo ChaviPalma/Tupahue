@@ -17,7 +17,11 @@ export default function Home() {
         style={{ backgroundImage: "url('/img/inicio.jpg')" }}
       >
         <div>
-          <h1 className={styles.heroTitle}>Bienvenidos a Iglesia Reformada Tupahue</h1>
+          <h1 className={styles.heroTitle}>
+            BIENVENIDOS<br />
+            IGLESIA TUPAHUE<br />
+            REFORMADA
+          </h1>
         </div>
       </section>
 
