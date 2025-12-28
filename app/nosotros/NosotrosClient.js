@@ -36,22 +36,16 @@ export default function NosotrosClient() {
                     <div className={styles.contentBox}>
                         <h5 className={styles.subtitle}>Visión</h5>
                         <p className={styles.textMuted}>
-                            Ser una Iglesia compuesta por discípulos diversos que orientan integralmente su vida de
-                            acuerdo con el evangelio, buscando ser el verdadero Jesús conocido en Puerto Montt y
-                            alrededor del mundo para la gloria de Dios.
+
+                            Ser una iglesia compuesta por discípulos diversos que orientan integralmente su vida de acuerdo con el evangelio buscando hacer el verdadero Jesús conocido en Puerto Montt y alrededor del mundo para la gloria de Dios
                         </p>
                     </div>
 
                     <div className={styles.contentBox}>
                         <h5 className={styles.subtitle}>Misión</h5>
                         <p className={styles.textMuted}>
-                            La iglesia Tupahue existe para anunciar el evangelio en Puerto Montt y hasta el fin de la tierra, Uniéndonos a Dios en su propósito de Hacer nuevas todas las cosas a través de la
-                            persona y obra de Jesús. Nos reunimos semanalmente para proclamar las buenas nuevas
-                            del evangelio y responder en adoración, recordando la historia de
-                            la redención, y renovando nuestro pacto con Dios.
-                            Nos reunimos durante la semana, para reuniones de
-                            oración, en casas, buscando vivir y anunciar el
-                            evangelio.
+
+                            La iglesia Tupahue existe para anunciar el evangelio en Puerto Montt y hasta el fin de la tierra, uniéndonos a Dios en su propósito de hacer nuevas todas las cosas a través de la persona y obra de Jesús. Nos reunimos semanalmente para proclamar las buenas nuevas del evangelio y responder en adoración, recordando la historia de la redención, y renovando nuestro pacto con Dios. Nos reunimos durante la semana, para reuniones de oración, en casas, buscando vivir y anunciar el evangelio.
                         </p>
                     </div>
                 </div>
