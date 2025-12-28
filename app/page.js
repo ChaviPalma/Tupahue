@@ -41,21 +41,7 @@ export default function Home() {
         <div className={styles.container}>
           <h2 className={styles.sectionTitle}>Nuestros Servicios</h2>
           <div className={styles.videosGrid}>
-            {/* Video 1 */}
-            <div className={styles.videoCard}>
-              <div className={styles.videoContainer}>
-                <iframe
-                  src="https://www.youtube.com/embed/jMQa-1Gk3a4?si=EN8szu3jncPMrSAL"
-                  allowFullScreen
-                  title="El credo"
-                />
-              </div>
-              <div className={styles.cardBody}>
-                <h5 className={styles.cardTitle}>El credo</h5>
-              </div>
-            </div>
-
-            {/* Video 2 */}
+            {/* Video 1 - Servicio Dominical */}
             <div className={styles.videoCard}>
               <div className={styles.videoContainer}>
                 <iframe
@@ -69,7 +55,21 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Video 3 */}
+            {/* Video 2 - El Credo */}
+            <div className={styles.videoCard}>
+              <div className={styles.videoContainer}>
+                <iframe
+                  src="https://www.youtube.com/embed/jMQa-1Gk3a4?si=EN8szu3jncPMrSAL"
+                  allowFullScreen
+                  title="El credo"
+                />
+              </div>
+              <div className={styles.cardBody}>
+                <h5 className={styles.cardTitle}>El credo</h5>
+              </div>
+            </div>
+
+            {/* Video 3 - Estudio Bíblico */}
             <div className={styles.videoCard}>
               <div className={styles.videoContainer}>
                 <iframe
