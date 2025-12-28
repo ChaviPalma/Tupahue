@@ -38,10 +38,10 @@
 .navbarToggler {
     display: none;
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    border: none;
     padding: 0.5rem;
     cursor: pointer;
-    border-radius: 4px;
+
     z-index: 1001;
 }
 
