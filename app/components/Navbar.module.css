@@ -41,7 +41,6 @@
     border: none;
     padding: 0.5rem;
     cursor: pointer;
-
     z-index: 1001;
 }
 
@@ -147,11 +146,23 @@
 /* ===== RESPONSIVE ===== */
 @media (max-width: 767.98px) {
     .logoNavbar {
-        height: 50px;
+        height: 80px;
     }
 
     .navbarToggler {
         display: block;
+        position: absolute;
+        right: 1.5rem;
+    }
+
+    .navbarContainer {
+        justify-content: center;
+        position: relative;
+    }
+
+    .navbarBrand {
+        flex: 1;
+        justify-content: center;
     }
 
     .navbarCollapse {
