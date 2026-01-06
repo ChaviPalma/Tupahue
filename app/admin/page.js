@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { getCurrentUser } from '../../../lib/supabase';
+import { getCurrentUser } from '../../lib/supabase';
 import AdminClient from './AdminClient';
 
 export default function AdminPage() {
