@@ -151,15 +151,15 @@ export default function NosotrosClient() {
                                 <li>Aquellos que confían en Cristo deben arrepentirse del pecado, confesar la fe y ser bautizados.</li>
                                 <li>La iglesia es el cuerpo de Cristo en la tierra, con el poder del Espíritu Santo para continuar la tarea de alcanzar los perdidos, discipular los salvos y reflejar el reino en misericordia, unidad y amor.</li>
                                 <li>La salvación es un regalo gratuito de Dios. Tornando posible por la muerte y resurrección de Jesús y recibido por la fe.</li>
-                                <li>La Biblia es la palabra inspirada de Dios y la autoridad final en la vida y en la doctrina.</li>
-                                <li>Cuando muramos, seremos separados de Dios por el pecado o unidos a él eternamente por la fe en Cristo Jesús como nuestro señor y Salvador.</li>
+                                <li>La Biblia es la Palabra Inspirada de Dios y la autoridad final en la vida y en la doctrina.</li>
+                                <li>Cuando muramos, seremos separados de Dios por el pecado o unidos a él eternamente por la fe en Cristo Jesús como nuestro Señor y Salvador.</li>
                                 <li>Cristo volverá un día, restaurará la creación y reinará para siempre.</li>
                             </ol>
 
                             <h4 className={styles.sectionSubtitle}>II. Declaración de fe</h4>
                             <ol className={styles.orderedList}>
                                 <li><strong>El Dios trino:</strong> creemos en uno solo Dios, que existe eternamente en tres personas
-                                    igualmente divinas: Padre, Hijo y Espíritu Santo, que conocen aman y glorifican uno
+                                    igualmente divinas: Padre, Hijo y Espíritu Santo, que conocen, aman y glorifican uno
                                     al otro. Este único Dios verdadero y vivo es infinitamente perfecto tanto en su amor
                                     cuanto en su santidad. Él es el creador de todas las cosas visibles y invisibles
                                     siendo así digno de recibir toda la gloria y adoración. Inmortal y eterno, él conoce
@@ -170,17 +170,17 @@ export default function NosotrosClient() {
                                 <li><strong>Revelación:</strong> Dios graciosamente reveló su existencia y poder en la orden criada, y
                                     se ha revelado de manera suprema a los seres humanos caídos en la persona de
                                     su hijo, el verbo encarnado. Además, este Dios es un Dios que habla, por su
-                                    espíritu graciosamente se reveló en palabras humanas: creemos que Dios inspiró
+                                    Espíritu graciosamente se reveló en palabras humanas: creemos que Dios inspiró
                                     las palabras preservadas en las escrituras, los 66 libros del antiguo y del nuevo
-                                    testamento, los cuales documentan y son medio de su obra salvífico en el mundo.
-                                    Solamente estos descritos constituyen la palabra de dios verbalmente inspirada, la
-                                    cual, en los descritos originales, poseen autoridad suprema y está yenta de error,
+                                    testamento, los cuales documentan y son medio de su obra salvífica en el mundo.
+                                    Solamente estos escritos constituyen la Palabra de Dios verbalmente inspirada, la
+                                    cual, en los descritos originales, poseen autoridad suprema y está exenta de error,
                                     siendo también completa en la revelación de su voluntad para la salvación,
                                     suficiente para todo lo que Dios requiere que creamos y hagamos y final en su
                                     autoridad sobre todo el dominio del conocimiento que exprime. Confesamos que
-                                    tanto nuestra finitud cuanto nuestra pecaminosos sea impide la posibilidad de
-                                    conocer es exhaustivamente la verdad de Dios, más afirmamos que iluminados por
-                                    el espíritu de Dios, podemos conocer verdaderamente la verdad revelada de Dios.
+                                    tanto nuestra finitud cuanto nuestra pecaminosidad sea impide la posibilidad de
+                                    conocer exhaustivamente la verdad de Dios, más afirmamos que iluminados por
+                                    el Espíritu de Dios, podemos conocer verdaderamente la verdad revelada de Dios.
                                     La Biblia debe ser creída - como la instrucción de Dios - como peor de Dios - en
                                     todo lo que promete. La medida que el pueblo de Dios oye, cree y obedece a la
                                     palabra, él es equipado como la colectividad de discípulos de Cristo y testigos del
