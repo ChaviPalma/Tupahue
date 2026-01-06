@@ -445,24 +445,17 @@
 }
 
 .creenciaItem {
-    display: flex;
-    gap: 1.5rem;
     margin-bottom: 2rem;
     text-align: left;
 }
 
 .creenciaNumber {
-    font-size: 1.8rem;
     font-weight: bold;
     color: #000;
-    line-height: 1;
-    flex-shrink: 0;
-    min-width: 35px;
+    margin-right: 0.5rem;
 }
 
-.creenciaContent {
-    flex: 1;
-}
+
 
 .creenciaTitle {
     font-weight: bold;
@@ -472,14 +465,7 @@
 }
 
 @media (max-width: 767.98px) {
-    .creenciaItem {
-        gap: 1rem;
-    }
 
-    .creenciaNumber {
-        font-size: 1.5rem;
-        min-width: 30px;
-    }
 
     .creenciaTitle {
         font-size: 1rem;
