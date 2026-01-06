@@ -114,6 +114,29 @@ export default function NosotrosClient() {
                                 </p>
                             </div>
                         </div>
+
+                        <div className={styles.creenciaItem}>
+                            <span className={styles.creenciaNumber}>6</span>
+                            <div className={styles.creenciaContent}>
+                                <h5 className={styles.creenciaTitle}>Honramos la historia</h5>
+                                <p className={styles.textMuted}>
+                                    Somos parte de un movimiento histórico de hombres y mujeres que buscaron a Dios con celo.
+                                    Priorizamos las liturgias antiguas y aprendemos del testimonio de quienes nos precedieron.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className={styles.creenciaItem}>
+                            <span className={styles.creenciaNumber}>7</span>
+                            <div className={styles.creenciaContent}>
+                                <h5 className={styles.creenciaTitle}>Tenemos una Cosmovisión bíblica cristiana</h5>
+                                <p className={styles.textMuted}>
+                                    Miramos toda la vida a través de las lentes del Evangelio. La meta narrativa de creación, caída, redención
+                                    y consumación nos muestra que todas las cosas fueron creadas por Dios, afectadas por el pecado y necesitan
+                                    ser redimidas a los pies de la cruz.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
