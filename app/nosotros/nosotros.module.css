@@ -452,12 +452,12 @@
 }
 
 .creenciaNumber {
-    font-size: 2.5rem;
+    font-size: 1.8rem;
     font-weight: bold;
     color: #000;
     line-height: 1;
     flex-shrink: 0;
-    min-width: 40px;
+    min-width: 35px;
 }
 
 .creenciaContent {
@@ -477,7 +477,7 @@
     }
 
     .creenciaNumber {
-        font-size: 2rem;
+        font-size: 1.5rem;
         min-width: 30px;
     }
 
