@@ -24,8 +24,7 @@ export default function AdminClient({ user }) {
                 .from('reservas')
                 .select(`
                     *,
-                    libros (titulo, autor, categoria),
-                    users:user_id (email, raw_user_meta_data)
+                    libros (titulo, autor, categoria)
                 `)
                 .order('created_at', { ascending: false });
 
@@ -33,6 +32,7 @@ export default function AdminClient({ user }) {
             setReservas(data || []);
         } catch (error) {
             console.error('Error fetching reservas:', error);
+            setReservas([]);
         } finally {
             setLoading(false);
         }
@@ -104,8 +104,8 @@ export default function AdminClient({ user }) {
                         <table className={styles.table}>
                             <thead>
                                 <tr>
-                                    <th>Usuario</th>
-                                    <th>Email</th>
+                                    <th>ID Usuario (corto)</th>
+                                    <th>ID Usuario (completo)</th>
                                     <th>Libro</th>
                                     <th>Autor</th>
                                     <th>Fecha Reserva</th>
@@ -116,13 +116,12 @@ export default function AdminClient({ user }) {
                             <tbody>
                                 {filteredReservas.map((reserva) => {
                                     const daysRemaining = getDaysRemaining(reserva.created_at);
-                                    const userName = reserva.users?.raw_user_meta_data?.nombre || 'Usuario';
-                                    const userEmail = reserva.users?.email || 'N/A';
+                                    const userId = reserva.user_id || 'N/A';
 
                                     return (
                                         <tr key={reserva.id}>
-                                            <td>{userName}</td>
-                                            <td>{userEmail}</td>
+                                            <td>{userId.substring(0, 8)}...</td>
+                                            <td>{userId}</td>
                                             <td>{reserva.libros?.titulo || 'N/A'}</td>
                                             <td>{reserva.libros?.autor || 'N/A'}</td>
                                             <td>{new Date(reserva.created_at).toLocaleDateString('es-CL')}</td>
