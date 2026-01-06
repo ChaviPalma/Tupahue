@@ -20,7 +20,7 @@ export default function AdminPage() {
             }
 
             // Verificar si el usuario es admin
-            const isAdmin = currentUser.email === 'admin@tupahue.cl' ||
+            const isAdmin = currentUser.email === 'barbarapalmamena@gmail.com' ||
                 currentUser.user_metadata?.role === 'admin';
 
             if (!isAdmin) {
