@@ -1,0 +1,207 @@
+/* ===== CONTENEDOR PRINCIPAL ===== */
+.pageContainer {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding-top: 100px;
+    padding-bottom: 3rem;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* ===== TÍTULOS ===== */
+.title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+/* ===== FILTROS ===== */
+.filterContainer {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.filterBtn {
+    padding: 0.75rem 1.5rem;
+    border: 2px solid #3c4d6b;
+    background: white;
+    color: #3c4d6b;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filterBtn:hover {
+    background: #3c4d6b;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filterBtn.active {
+    background: #3c4d6b;
+    color: white;
+    box-shadow: 0 4px 12px rgba(60, 77, 107, 0.3);
+}
+
+/* ===== TABLA ===== */
+.tableContainer {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table thead {
+    background: #3c4d6b;
+    color: white;
+}
+
+.table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid #ecf0f1;
+    transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.table td {
+    padding: 1rem;
+    color: #2c3e50;
+}
+
+/* ===== BADGES ===== */
+.badge {
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.badgeActive {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.badgeReturned {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+/* ===== DÍAS RESTANTES ===== */
+.daysRemaining {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.returned {
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* ===== ESTADOS ===== */
+.loading,
+.empty {
+    text-align: center;
+    padding: 3rem;
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1200px) {
+    .table {
+        font-size: 0.9rem;
+    }
+
+    .table th,
+    .table td {
+        padding: 0.75rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .title {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .tableContainer {
+        overflow-x: auto;
+    }
+
+    .table {
+        min-width: 800px;
+        font-size: 0.85rem;
+    }
+
+    .table th,
+    .table td {
+        padding: 0.5rem;
+        white-space: nowrap;
+    }
+
+    .filterBtn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 1rem;
+    }
+
+    .title {
+        font-size: 1.5rem;
+    }
+
+    .filterContainer {
+        gap: 0.5rem;
+    }
+
+    .filterBtn {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+}
