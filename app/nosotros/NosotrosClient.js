@@ -141,7 +141,7 @@ export default function NosotrosClient() {
 
                     <div className={styles.declaracionCard}>
                         <div className={styles.declaracionBody}>
-                            <h2 className={styles.declaracionTitle}>Iglesia Reformada Tupahue</h2>
+                            <h2 className={styles.declaracionTitle}>Iglesia Tupahue</h2>
                             <h2 className={styles.declaracionSubtitle}>Declaración de fe y fundamentos básicos</h2>
 
                             <h4 className={styles.sectionSubtitle}>I. Fundamentos básicos de la fe</h4>
