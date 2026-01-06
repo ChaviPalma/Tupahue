@@ -146,10 +146,10 @@ export default function NosotrosClient() {
 
                             <h4 className={styles.sectionSubtitle}>I. Fundamentos básicos de la fe</h4>
                             <ol className={styles.orderedList}>
-                                <li>Hay un Dios, existiendo eternamente en la Trinidad padre, hijo y Espíritu Santo.</li>
-                                <li>Por amor, Dios envió su hijo Jesucristo para morir por nuestros pecados y resucitar de los muertos, para rescatar pecadores y redimir la creación.</li>
+                                <li>Hay un Dios, existiendo eternamente en la Trinidad Padre, Hijo y Espíritu Santo.</li>
+                                <li>Por amor, Dios envió su Hijo Jesucristo para morir por nuestros pecados y resucitar de los muertos, para rescatar pecadores y redimir la creación.</li>
                                 <li>Aquellos que confían en Cristo deben arrepentirse del pecado, confesar la fe y ser bautizados.</li>
-                                <li>La iglesia es el cuerpo de Cristo en la tierra, con el poder del Espíritu Santo para continuar la tarea de alcanzarlos perdidos, discípula los salvos y reflejar el reino en misericordia, unidad y amor.</li>
+                                <li>La iglesia es el cuerpo de Cristo en la tierra, con el poder del Espíritu Santo para continuar la tarea de alcanzar los perdidos, discipular los salvos y reflejar el reino en misericordia, unidad y amor.</li>
                                 <li>La salvación es un regalo gratuito de Dios. Tornando posible por la muerte y resurrección de Jesús y recibido por la fe.</li>
                                 <li>La Biblia es la palabra inspirada de Dios y la autoridad final en la vida y en la doctrina.</li>
                                 <li>Cuando muramos, seremos separados de Dios por el pecado o unidos a él eternamente por la fe en Cristo Jesús como nuestro señor y Salvador.</li>
@@ -159,7 +159,7 @@ export default function NosotrosClient() {
                             <h4 className={styles.sectionSubtitle}>II. Declaración de fe</h4>
                             <ol className={styles.orderedList}>
                                 <li><strong>El Dios trino:</strong> creemos en uno solo Dios, que existe eternamente en tres personas
-                                    igualmente divinas: padre hijo y Espíritu Santo, que conocen aman y glorifican uno
+                                    igualmente divinas: Padre, Hijo y Espíritu Santo, que conocen aman y glorifican uno
                                     al otro. Este único Dios verdadero y vivo es infinitamente perfecto tanto en su amor
                                     cuanto en su santidad. Él es el creador de todas las cosas visibles y invisibles
                                     siendo así digno de recibir toda la gloria y adoración. Inmortal y eterno, él conoce
