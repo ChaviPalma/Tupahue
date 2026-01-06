@@ -57,51 +57,63 @@ export default function NosotrosClient() {
                     <hr className={styles.divider} />
                     <h2 className={styles.sectionTitle}>Qué creemos</h2>
 
-                    <div className={styles.contentBox}>
-                        <h5 className={styles.subtitle}>Vemos la obra de Dios en conformidad con su eterno propósito</h5>
-                        <p className={styles.textMuted}>
-                            Todo lo que Dios Padre está haciendo en la historia, prepara una novia para su hijo Jesucristo,
-                            y edifica una habitación para su espíritu, para que el pueblo de Dios viva para la alabanza de su gloria
-                            y Cristo Jesús sea glorificado en ellos.
-                        </p>
+                    <div className={styles.creenciasList}>
+                        <div className={styles.creenciaItem}>
+                            <span className={styles.creenciaNumber}>1</span>
+                            <div className={styles.creenciaContent}>
+                                <h5 className={styles.creenciaTitle}>Vemos la obra de Dios en conformidad con su eterno propósito</h5>
+                                <p className={styles.textMuted}>
+                                    Todo lo que Dios Padre está haciendo en la historia, prepara una novia para su hijo Jesucristo,
+                                    y edifica una habitación para su espíritu, para que el pueblo de Dios viva para la alabanza de su gloria
+                                    y Cristo Jesús sea glorificado en ellos.
+                                </p>
+                            </div>
+                        </div>
 
-                        <h5 className={styles.subtitle}>Nos movemos de acuerdo con una perspectiva sacerdotal</h5>
-                        <p className={styles.textMuted}>
-                            La iglesia es un pueblo sacerdotal; nuestra misión es presentar la creación y el mundo delante de Dios
-                            (para la gloria de Dios), delante de los santos (para la edificación de la iglesia) y delante del mundo
-                            (para el bien del mundo).
-                        </p>
+                        <div className={styles.creenciaItem}>
+                            <span className={styles.creenciaNumber}>2</span>
+                            <div className={styles.creenciaContent}>
+                                <h5 className={styles.creenciaTitle}>Nos movemos de acuerdo con una perspectiva sacerdotal</h5>
+                                <p className={styles.textMuted}>
+                                    La iglesia es un pueblo sacerdotal; nuestra misión es presentar la creación y el mundo delante de Dios
+                                    (para la gloria de Dios), delante de los santos (para la edificación de la iglesia) y delante del mundo
+                                    (para el bien del mundo).
+                                </p>
+                            </div>
+                        </div>
 
-                        <h5 className={styles.subtitle}>Priorizamos el evangelio</h5>
-                        <p className={styles.textMuted}>
-                            El evangelio es el glorioso anuncio de lo que Dios hizo por medio de la vida, muerte y resurrección de Jesús.
-                            Queremos que todas las personas oigan, crean y sean transformadas por las buenas nuevas de Cristo.
-                        </p>
+                        <div className={styles.creenciaItem}>
+                            <span className={styles.creenciaNumber}>3</span>
+                            <div className={styles.creenciaContent}>
+                                <h5 className={styles.creenciaTitle}>Priorizamos el evangelio</h5>
+                                <p className={styles.textMuted}>
+                                    El evangelio es el glorioso anuncio de lo que Dios hizo por medio de la vida, muerte y resurrección de Jesús.
+                                    Queremos que todas las personas oigan, crean y sean transformadas por las buenas nuevas de Cristo.
+                                </p>
+                            </div>
+                        </div>
 
-                        <h5 className={styles.subtitle}>Comprometámonos con la comunidad</h5>
-                        <p className={styles.textMuted}>
-                            Somos salvados del aislamiento e insertados en una nueva comunidad conocida como el pueblo Redimido de Dios.
-                            Demostramos el evangelio y declaramos lo que Cristo hizo cuando nos amamos como comunidad.
-                        </p>
+                        <div className={styles.creenciaItem}>
+                            <span className={styles.creenciaNumber}>4</span>
+                            <div className={styles.creenciaContent}>
+                                <h5 className={styles.creenciaTitle}>Comprometámonos con la comunidad</h5>
+                                <p className={styles.textMuted}>
+                                    Somos salvados del aislamiento e insertados en una nueva comunidad conocida como el pueblo Redimido de Dios.
+                                    Demostramos el evangelio y declaramos lo que Cristo hizo cuando nos amamos como comunidad.
+                                </p>
+                            </div>
+                        </div>
 
-                        <h5 className={styles.subtitle}>Valoramos la cultura</h5>
-                        <p className={styles.textMuted}>
-                            Queremos estar intencionalmente presentes en nuestra ciudad para el bien de nuestro prójimo y para la gloria de Dios,
-                            sin perder el poder de transformar vidas.
-                        </p>
-
-                        <h5 className={styles.subtitle}>Honramos la historia</h5>
-                        <p className={styles.textMuted}>
-                            Somos parte de un movimiento histórico de hombres y mujeres que buscaron a Dios con celo.
-                            Priorizamos las liturgias antiguas y aprendemos del testimonio de quienes nos precedieron.
-                        </p>
-
-                        <h5 className={styles.subtitle}>Tenemos una Cosmovisión bíblica cristiana</h5>
-                        <p className={styles.textMuted}>
-                            Miramos toda la vida a través de las lentes del Evangelio. La meta narrativa de creación, caída, redención
-                            y consumación nos muestra que todas las cosas fueron creadas por Dios, afectadas por el pecado y necesitan
-                            ser redimidas a los pies de la cruz.
-                        </p>
+                        <div className={styles.creenciaItem}>
+                            <span className={styles.creenciaNumber}>5</span>
+                            <div className={styles.creenciaContent}>
+                                <h5 className={styles.creenciaTitle}>Valoramos la cultura</h5>
+                                <p className={styles.textMuted}>
+                                    Queremos estar intencionalmente presentes en nuestra ciudad para el bien de nuestro prójimo y para la gloria de Dios,
+                                    sin perder el poder de transformar vidas.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>

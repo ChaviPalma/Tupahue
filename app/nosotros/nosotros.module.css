@@ -436,5 +436,52 @@
     .footerContainer {
         gap: 2rem;
     }
-}.textHighlight { color: #dc3545; font-weight: 600; }
-.textHighlight { color: #dc3545; font-weight: 600; }
+}
+
+/* ===== CREENCIAS ENUMERADAS ===== */
+.creenciasList {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.creenciaItem {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.creenciaNumber {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #000;
+    line-height: 1;
+    flex-shrink: 0;
+    min-width: 40px;
+}
+
+.creenciaContent {
+    flex: 1;
+}
+
+.creenciaTitle {
+    font-weight: bold;
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+@media (max-width: 767.98px) {
+    .creenciaItem {
+        gap: 1rem;
+    }
+
+    .creenciaNumber {
+        font-size: 2rem;
+        min-width: 30px;
+    }
+
+    .creenciaTitle {
+        font-size: 1rem;
+    }
+}
