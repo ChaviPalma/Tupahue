@@ -70,14 +70,12 @@ export async function GET(request) {
                 .eq('id', reserva.libro_id)
                 .single();
 
-            // Obtener datos del usuario
-            const { data: usuario } = await supabaseClient
-                .from('users')
-                .select('email, raw_user_meta_data')
-                .eq('id', reserva.user_id)
-                .single();
+            // Obtener datos del usuario usando la API de Admin (más confiable)
+            const { data: { user: usuario }, error: userError } = await supabaseClient.auth.admin.getUserById(
+                reserva.user_id
+            );
 
-            if (!libro || !usuario || !usuario.email) continue;
+            if (!libro || userError || !usuario || !usuario.email) continue;
 
             // Calcular días de préstamo según páginas del libro (7 o 14 días)
             const paginas = libro.paginas || 100;
@@ -92,59 +90,71 @@ export async function GET(request) {
             const diasRestantes = Math.ceil((fechaVencimiento - now) / (1000 * 60 * 60 * 24));
 
             let shouldSendEmail = false;
-            let emailType = '';
+            let isLate = diasRestantes < 0;
+            let diffDays = Math.abs(diasRestantes);
 
-            // Lógica de recordatorios: 3 días antes, 1 día antes, hoy, o atrasado
-            if (diasRestantes === 3) {
+            // Enviar recordatorio: 3 días antes, 1 día antes, hoy, o cada 3 días si está atrasado
+            if (diasRestantes === 3 || diasRestantes === 1 || diasRestantes === 0) {
                 shouldSendEmail = true;
-                emailType = '3 días';
-            } else if (diasRestantes === 1) {
+            } else if (diasRestantes < 0 && diasRestantes % 3 === 0) {
+                // Si está atrasado, enviar cada 3 días para no spamear tanto
                 shouldSendEmail = true;
-                emailType = '1 día';
-            } else if (diasRestantes === 0) {
-                shouldSendEmail = true;
-                emailType = 'hoy';
-            } else if (diasRestantes < 0) {
-                shouldSendEmail = true;
-                emailType = 'atrasado';
             }
 
             if (shouldSendEmail) {
-                const userName = usuario.raw_user_meta_data?.nombre || 'Usuario';
+                const userName = usuario.user_metadata?.nombre || 'Usuario';
                 const bookTitle = libro.titulo;
-                const bookAuthor = libro.autor || '';
 
-                let subject = '';
-                let message = '';
+                const subject = diasRestantes === 0
+                    ? `⏰ ¡Hoy vence! Devolución de "${bookTitle}"`
+                    : isLate
+                        ? `⚠️ Libro atrasado: "${bookTitle}" (${diffDays} días)`
+                        : `📚 Recordatorio: Devolución de "${bookTitle}" (${diasRestantes} días)`;
 
-                if (emailType === '3 días') {
-                    subject = `Recordatorio: Devolver "${bookTitle}" en 3 días`;
-                    message = `Hola ${userName},\n\nTe recordamos que tienes 3 días para devolver el libro "${bookTitle}" de ${bookAuthor}.\n\nFecha de devolución: ${fechaVencimiento.toLocaleDateString('es-CL')}\n\n¡Gracias por usar nuestra biblioteca!\n\nIglesia Reformada Tupahue`;
-                } else if (emailType === '1 día') {
-                    subject = `Urgente: Devolver "${bookTitle}" mañana`;
-                    message = `Hola ${userName},\n\n⚠️ Te recordamos que mañana debes devolver el libro "${bookTitle}" de ${bookAuthor}.\n\nFecha de devolución: ${fechaVencimiento.toLocaleDateString('es-CL')}\n\n¡Gracias por usar nuestra biblioteca!\n\nIglesia Reformada Tupahue`;
-                } else if (emailType === 'hoy') {
-                    subject = `¡Hoy vence! Devolver "${bookTitle}"`;
-                    message = `Hola ${userName},\n\n⏰ Hoy es el último día para devolver el libro "${bookTitle}" de ${bookAuthor}.\n\nFecha de devolución: ${fechaVencimiento.toLocaleDateString('es-CL')}\n\nPor favor, devuélvelo lo antes posible.\n\nIglesia Reformada Tupahue`;
-                } else if (emailType === 'atrasado') {
-                    const daysLate = Math.abs(diasRestantes);
-                    subject = `Libro atrasado: "${bookTitle}" (${daysLate} días)`;
-                    message = `Hola ${userName},\n\n❗ El libro "${bookTitle}" de ${bookAuthor} está atrasado por ${daysLate} día(s).\n\nFecha de devolución era: ${fechaVencimiento.toLocaleDateString('es-CL')}\n\nPor favor, devuélvelo lo antes posible.\n\nIglesia Reformada Tupahue`;
-                }
+                const statusText = diasRestantes === 0
+                    ? `<strong>vence hoy</strong>`
+                    : isLate
+                        ? `está <strong style="color: #dc3545;">${diffDays} día${diffDays > 1 ? 's' : ''} atrasado</strong>`
+                        : `vence en <strong>${diasRestantes} día${diasRestantes > 1 ? 's' : ''}</strong> (el ${fechaVencimiento.toLocaleDateString('es-CL')})`;
 
                 try {
                     await getResend().emails.send({
                         from: 'Biblioteca Tupahue <onboarding@resend.dev>',
                         to: [usuario.email],
                         subject: subject,
-                        text: message,
+                        html: `
+                            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                                <h2 style="color: ${isLate || diasRestantes === 0 ? '#dc3545' : '#3c4d6b'};">
+                                    ${isLate ? '⚠️ Recordatorio de Devolución Atrasada' : '📚 Recordatorio de Devolución'}
+                                </h2>
+                                
+                                <p>Hola ${userName},</p>
+                                
+                                <p>Te escribimos para recordarte que tu préstamo del libro "${bookTitle}" ${statusText}.</p>
+                                
+                                <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                                    <h3 style="margin-top: 0;">📚 Detalles del libro:</h3>
+                                    <p><strong>Título:</strong> ${bookTitle}</p>
+                                    <p><strong>Autor:</strong> ${libro.autor || 'N/A'}</p>
+                                    <p><strong>Fecha de reserva:</strong> ${new Date(reserva.created_at).toLocaleDateString('es-CL')}</p>
+                                    <p><strong>Fecha límite de devolución:</strong> ${fechaVencimiento.toLocaleDateString('es-CL')}</p>
+                                    ${isLate ? `<p style="color: #dc3545;"><strong>Días de atraso:</strong> ${diffDays} día${diffDays > 1 ? 's' : ''}</p>` : ''}
+                                </div>
+                                
+                                <p>Por favor, devuelve el libro a tiempo para que otros miembros de la comunidad puedan disfrutarlo.</p>
+                                
+                                <p>Si ya devolviste el libro, por favor ignora este mensaje.</p>
+                                
+                                <p>Gracias por tu comprensión,<br>
+                                <strong>Biblioteca Iglesia Tupahue</strong></p>
+                            </div>
+                        `
                     });
 
                     emailsSent.push({
                         email: usuario.email,
                         book: bookTitle,
-                        type: emailType,
-                        daysUntilDue: diasRestantes
+                        daysRemaining: diasRestantes
                     });
                 } catch (emailError) {
                     console.error('Error sending email:', emailError);
