@@ -95,13 +95,14 @@ export default function AdminClient({ user }) {
             });
 
             if (!response.ok) {
-                throw new Error('Error al enviar recordatorio');
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Error al enviar recordatorio');
             }
 
             alert('✅ Recordatorio enviado correctamente');
         } catch (error) {
             console.error('Error:', error);
-            alert('❌ Error al enviar recordatorio');
+            alert(`❌ ${error.message}`);
         }
     };
 
