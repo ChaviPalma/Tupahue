@@ -90,6 +90,17 @@ export default function Navbar({ user, onLogout }) {
                         </li>
                         {user ? (
                             <>
+                                {/* Mostrar botón Admin solo para administradores */}
+                                {(user.email === 'barbarapalmamena@gmail.com' || user.user_metadata?.role === 'admin') && (
+                                    <li className={styles.navItem}>
+                                        <Link
+                                            className={`${styles.navLink} ${styles.btnAdmin} ${pathname === '/admin' ? styles.active : ''}`}
+                                            href="/admin"
+                                        >
+                                            👨‍💼 Admin
+                                        </Link>
+                                    </li>
+                                )}
                                 <li className={styles.navItem}>
                                     <Link
                                         className={`${styles.navLink} ${pathname === '/mis-reservas' ? styles.active : ''}`}

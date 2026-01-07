@@ -77,6 +77,34 @@ export default function AdminClient({ user }) {
         return '#28a745'; // Verde - tiempo suficiente
     };
 
+    const sendReminder = async (reservaId) => {
+        if (!confirm('¿Enviar recordatorio de devolución a este usuario?')) {
+            return;
+        }
+
+        try {
+            const { data: { session } } = await supabase.auth.getSession();
+
+            const response = await fetch('/api/admin/send-reminder', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${session.access_token}`
+                },
+                body: JSON.stringify({ reservaId })
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al enviar recordatorio');
+            }
+
+            alert('✅ Recordatorio enviado correctamente');
+        } catch (error) {
+            console.error('Error:', error);
+            alert('❌ Error al enviar recordatorio');
+        }
+    };
+
     return (
         <div className={styles.pageContainer}>
             <Navbar user={user} onLogout={handleLogout} />
@@ -124,6 +152,7 @@ export default function AdminClient({ user }) {
                                     <th>Fecha Reserva</th>
                                     <th>Estado</th>
                                     <th>Días Restantes</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -165,6 +194,19 @@ export default function AdminClient({ user }) {
                                                             : 'Devuelto'
                                                         }
                                                     </span>
+                                                )}
+                                            </td>
+                                            <td>
+                                                {reserva.estado === 'activa' && daysRemaining < 0 ? (
+                                                    <button
+                                                        className={styles.btnSendReminder}
+                                                        onClick={() => sendReminder(reserva.id)}
+                                                        title="Enviar recordatorio de devolución"
+                                                    >
+                                                        📧 Enviar
+                                                    </button>
+                                                ) : (
+                                                    <span style={{ color: '#6c757d' }}>-</span>
                                                 )}
                                             </td>
                                         </tr>
