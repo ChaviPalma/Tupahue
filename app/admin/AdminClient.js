@@ -20,15 +20,28 @@ export default function AdminClient({ user }) {
 
     async function fetchReservas() {
         try {
-            const { data, error } = await supabase
-                .from('reservas')
-                .select(`
-                    *,
-                    libros (titulo, autor, categoria)
-                `)
-                .order('created_at', { ascending: false });
+            // Obtener el token del usuario actual
+            const { data: { session } } = await supabase.auth.getSession();
 
-            if (error) throw error;
+            if (!session) {
+                console.error('No hay sesión activa');
+                setReservas([]);
+                setLoading(false);
+                return;
+            }
+
+            // Llamar a la API que tiene acceso a los datos de usuarios
+            const response = await fetch('/api/admin/reservas', {
+                headers: {
+                    'Authorization': `Bearer ${session.access_token}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al obtener reservas');
+            }
+
+            const { data } = await response.json();
             setReservas(data || []);
         } catch (error) {
             console.error('Error fetching reservas:', error);
@@ -104,8 +117,8 @@ export default function AdminClient({ user }) {
                         <table className={styles.table}>
                             <thead>
                                 <tr>
-                                    <th>ID Usuario (corto)</th>
-                                    <th>ID Usuario (completo)</th>
+                                    <th>Usuario</th>
+                                    <th>Email</th>
                                     <th>Libro</th>
                                     <th>Autor</th>
                                     <th>Fecha Reserva</th>
@@ -116,12 +129,13 @@ export default function AdminClient({ user }) {
                             <tbody>
                                 {filteredReservas.map((reserva) => {
                                     const daysRemaining = getDaysRemaining(reserva.created_at);
-                                    const userId = reserva.user_id || 'N/A';
+                                    const userName = reserva.usuario?.nombre || 'Usuario';
+                                    const userEmail = reserva.usuario?.email || 'N/A';
 
                                     return (
                                         <tr key={reserva.id}>
-                                            <td>{userId.substring(0, 8)}...</td>
-                                            <td>{userId}</td>
+                                            <td>{userName}</td>
+                                            <td>{userEmail}</td>
                                             <td>{reserva.libros?.titulo || 'N/A'}</td>
                                             <td>{reserva.libros?.autor || 'N/A'}</td>
                                             <td>{new Date(reserva.created_at).toLocaleDateString('es-CL')}</td>
