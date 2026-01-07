@@ -48,10 +48,10 @@ export async function POST(request) {
         const today = new Date();
         const daysLate = Math.ceil((today - dueDate) / (1000 * 60 * 60 * 24));
 
-        // Enviar email
+        // Enviar email (Forzado a Gmail para tus pruebas)
         const { data: emailData, error: emailError } = await resend.emails.send({
             from: 'Biblioteca Tupahue <onboarding@resend.dev>',
-            to: [user.email],
+            to: ['barbarapalmamena@gmail.com'],
             subject: `⚠️ Recordatorio: Devolución de libro atrasada (${daysLate} días)`,
             html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -76,13 +76,6 @@ export async function POST(request) {
                     
                     <p>Gracias por tu comprensión,<br>
                     <strong>Biblioteca Iglesia Tupahue</strong></p>
-                    
-                    <hr style="margin: 30px 0; border: none; border-top: 1px solid #dee2e6;">
-                    
-                    <p style="font-size: 12px; color: #6c757d;">
-                        Deber Cumplido 253, Puerto Montt, Los Lagos<br>
-                        +56 9 5608 8059
-                    </p>
                 </div>
             `
         });
@@ -91,8 +84,7 @@ export async function POST(request) {
 
         return Response.json({
             success: true,
-            message: 'Email enviado correctamente',
-            emailId: emailData.id
+            message: 'Email enviado correctamente'
         });
 
     } catch (error) {
