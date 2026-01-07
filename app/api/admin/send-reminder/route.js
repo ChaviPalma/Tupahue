@@ -48,10 +48,10 @@ export async function POST(request) {
         const today = new Date();
         const daysLate = Math.ceil((today - dueDate) / (1000 * 60 * 60 * 24));
 
-        // Enviar email (Forzado a Gmail para tus pruebas)
+        // Enviar email (Configurado para todos los usuarios)
         const { data: emailData, error: emailError } = await resend.emails.send({
             from: 'Biblioteca Tupahue <onboarding@resend.dev>',
-            to: ['barbarapalmamena@gmail.com'],
+            to: [user.email],
             subject: `⚠️ Recordatorio: Devolución de libro atrasada (${daysLate} días)`,
             html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
