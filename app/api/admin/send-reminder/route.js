@@ -41,25 +41,37 @@ export async function POST(request) {
 
         if (userError) throw userError;
 
-        // Calcular días de atraso
+        // Calcular días de atraso o restantes
         const created = new Date(reserva.created_at);
         const dueDate = new Date(created);
         dueDate.setDate(dueDate.getDate() + 14);
         const today = new Date();
-        const daysLate = Math.ceil((today - dueDate) / (1000 * 60 * 60 * 24));
+        const diffDays = Math.ceil((today - dueDate) / (1000 * 60 * 60 * 24));
+        const isLate = diffDays > 0;
 
-        // Enviar email (Configurado para todos los usuarios)
+        // Configurar asunto y mensaje según el estado
+        const subject = isLate
+            ? `⚠️ Recordatorio: Devolución de libro atrasada (${diffDays} días)`
+            : `📚 Recordatorio: Devolución de libro "${reserva.libros.titulo}"`;
+
+        const statusText = isLate
+            ? `está <strong style="color: #dc3545;">${diffDays} día${diffDays > 1 ? 's' : ''} atrasado</strong>`
+            : `vence el día <strong>${dueDate.toLocaleDateString('es-CL')}</strong>`;
+
+        // Enviar email
         const { data: emailData, error: emailError } = await resend.emails.send({
             from: 'Biblioteca Tupahue <onboarding@resend.dev>',
             to: [user.email],
-            subject: `⚠️ Recordatorio: Devolución de libro atrasada (${daysLate} días)`,
+            subject: subject,
             html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-                    <h2 style="color: #dc3545;">⚠️ Recordatorio de Devolución Atrasada</h2>
+                    <h2 style="color: ${isLate ? '#dc3545' : '#3c4d6b'};">
+                        ${isLate ? '⚠️ Recordatorio de Devolución Atrasada' : '📚 Recordatorio de Devolución'}
+                    </h2>
                     
                     <p>Hola ${user.user_metadata?.nombre || 'Usuario'},</p>
                     
-                    <p>Te escribimos para recordarte que tienes un libro pendiente de devolución que está <strong style="color: #dc3545;">${daysLate} día${daysLate > 1 ? 's' : ''} atrasado</strong>.</p>
+                    <p>Te escribimos para recordarte que tienes un libro pendiente de devolución que ${statusText}.</p>
                     
                     <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
                         <h3 style="margin-top: 0;">📚 Detalles del libro:</h3>
@@ -67,10 +79,10 @@ export async function POST(request) {
                         <p><strong>Autor:</strong> ${reserva.libros.autor}</p>
                         <p><strong>Fecha de reserva:</strong> ${new Date(reserva.created_at).toLocaleDateString('es-CL')}</p>
                         <p><strong>Fecha límite de devolución:</strong> ${dueDate.toLocaleDateString('es-CL')}</p>
-                        <p style="color: #dc3545;"><strong>Días de atraso:</strong> ${daysLate} día${daysLate > 1 ? 's' : ''}</p>
+                        ${isLate ? `<p style="color: #dc3545;"><strong>Días de atraso:</strong> ${diffDays} día${diffDays > 1 ? 's' : ''}</p>` : ''}
                     </div>
                     
-                    <p>Por favor, devuelve el libro lo antes posible para que otros miembros de la comunidad puedan disfrutarlo.</p>
+                    <p>Por favor, devuelve el libro a tiempo para que otros miembros de la comunidad puedan disfrutarlo.</p>
                     
                     <p>Si ya devolviste el libro, por favor ignora este mensaje.</p>
                     

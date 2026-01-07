@@ -198,7 +198,7 @@ export default function AdminClient({ user }) {
                                                 )}
                                             </td>
                                             <td>
-                                                {reserva.estado === 'activa' && daysRemaining < 0 ? (
+                                                {reserva.estado === 'activa' ? (
                                                     <button
                                                         className={styles.btnSendReminder}
                                                         onClick={() => sendReminder(reserva.id)}
