@@ -23,7 +23,7 @@ export async function GET(request) {
         // Obtener todas las reservas con información de libros
         const { data: reservas, error: reservasError } = await supabaseAdmin
             .from('reservas')
-            .select('*, libros (titulo, autor, categoria)')
+            .select('*, libros (titulo, autor, categoria, paginas)')
             .order('created_at', { ascending: false });
 
         if (reservasError) throw reservasError;

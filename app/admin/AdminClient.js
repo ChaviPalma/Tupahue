@@ -62,10 +62,12 @@ export default function AdminClient({ user }) {
         return true;
     });
 
-    const getDaysRemaining = (createdAt) => {
+    const getDaysRemaining = (createdAt, paginas) => {
         const created = new Date(createdAt);
         const dueDate = new Date(created);
-        dueDate.setDate(dueDate.getDate() + 14);
+        // Calcular días de préstamo según páginas (3 o 14 días)
+        const diasPrestamo = (paginas && paginas < 100) ? 3 : 14;
+        dueDate.setDate(dueDate.getDate() + diasPrestamo);
         const today = new Date();
         const diff = Math.ceil((dueDate - today) / (1000 * 60 * 60 * 24));
         return diff;
@@ -158,7 +160,7 @@ export default function AdminClient({ user }) {
                             </thead>
                             <tbody>
                                 {filteredReservas.map((reserva) => {
-                                    const daysRemaining = getDaysRemaining(reserva.created_at);
+                                    const daysRemaining = getDaysRemaining(reserva.created_at, reserva.libros?.paginas);
                                     const userName = reserva.usuario?.nombre || 'Usuario';
                                     const userEmail = reserva.usuario?.email || 'N/A';
 
