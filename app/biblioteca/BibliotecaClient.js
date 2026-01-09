@@ -6,7 +6,7 @@ import Image from "next/image";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import styles from "./biblioteca.module.css";
-import { getLibros, reservarLibro, getCurrentUser } from '@/lib/supabase';
+import { getLibros, reservarLibro, getCurrentUser, signOut } from '@/lib/supabase';
 
 export default function BibliotecaClient() {
     const router = useRouter();
@@ -74,12 +74,16 @@ export default function BibliotecaClient() {
         ? libros.filter(libro => libro.categoria === categoriaSeleccionada)
         : libros;
 
-
+    const handleLogout = async () => {
+        await signOut();
+        setUser(null);
+        router.push('/');
+    };
 
     return (
         <div className={styles.pageContainer}>
             {/* Navbar */}
-            <Navbar user={user} />
+            <Navbar user={user} onLogout={handleLogout} />
 
             {/* Contenedor principal */}
             <div className={styles.mainContainer}>
