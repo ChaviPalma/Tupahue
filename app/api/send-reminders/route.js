@@ -77,9 +77,9 @@ export async function GET(request) {
 
             if (!libro || userError || !usuario || !usuario.email) continue;
 
-            // Calcular días de préstamo según páginas del libro (7 o 14 días)
+            // Calcular días de préstamo según páginas del libro (3 o 14 días)
             const paginas = libro.paginas || 100;
-            const diasPrestamo = paginas < 100 ? 7 : 14;
+            const diasPrestamo = paginas < 100 ? 3 : 14;
 
             // Calcular fecha de vencimiento
             const fechaReserva = new Date(reserva.created_at);

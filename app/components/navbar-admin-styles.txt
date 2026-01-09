@@ -1,0 +1,17 @@
+﻿/* ===== BOTÓN ADMIN EN NAVBAR ===== */
+.btnAdmin {
+    background-color: #6f42c1;
+    color: white !important;
+    border-radius: 8px;
+    padding: 6px 18px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btnAdmin:hover {
+    background-color: #5a32a3;
+    transform: translateY(-2px);
+    color: white !important;
+}
