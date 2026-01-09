@@ -28,7 +28,7 @@ export async function POST(request) {
         // Obtener la reserva
         const { data: reserva, error: reservaError } = await supabaseAdmin
             .from('reservas')
-            .select('*, libros (titulo, autor)')
+            .select('*, libros (titulo, autor, paginas)')
             .eq('id', reservaId)
             .single();
 
@@ -41,10 +41,13 @@ export async function POST(request) {
 
         if (userError) throw userError;
 
-        // Calcular días de atraso o restantes
+        // Calcular días de atraso o restantes según páginas del libro
         const created = new Date(reserva.created_at);
         const dueDate = new Date(created);
-        dueDate.setDate(dueDate.getDate() + 14);
+        // Calcular días de préstamo según páginas (3 o 14 días)
+        const paginas = reserva.libros?.paginas || 100;
+        const diasPrestamo = paginas < 100 ? 3 : 14;
+        dueDate.setDate(dueDate.getDate() + diasPrestamo);
         const today = new Date();
         const diffDays = Math.ceil((today - dueDate) / (1000 * 60 * 60 * 24));
         const isLate = diffDays > 0;
