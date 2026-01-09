@@ -21,8 +21,9 @@ export default function AdminPage() {
                 return;
             }
 
-            // Verificar si el usuario es admin
+            // Verificar si el usuario es admin (acepta ambos emails)
             const isAdmin = currentUser.email === 'barbarapalmamena@gmail.com' ||
+                currentUser.email === 'ba.palmam@duocuc.cl' ||
                 currentUser.user_metadata?.role === 'admin';
 
             console.log('Email del usuario:', currentUser.email);
