@@ -97,7 +97,7 @@ export default function Navbar({ user, onLogout }) {
                                             className={`${styles.navLink} ${styles.btnAdmin} ${pathname === '/admin' ? styles.active : ''}`}
                                             href="/admin"
                                         >
-                                            👨‍💼 Admin
+                                            Admin
                                         </Link>
                                     </li>
                                 )}
