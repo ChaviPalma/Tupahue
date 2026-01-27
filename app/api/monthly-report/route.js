@@ -115,94 +115,61 @@ export async function GET(request) {
             </tr>
         `).join('');
 
-        // Enviar email al administrador (solo al email verificado en Resend)
-        const adminEmail = 'ba.palmam@duocuc.cl';
+        // Enviar datos a n8n para que maneje el envío de email
+        const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL;
 
-        const emailResult = await getResend().emails.send({
-            from: 'Biblioteca Tupahue <onboarding@resend.dev>',
-            to: adminEmail,
-            subject: `📊 Reporte Mensual de Biblioteca - ${nombreMes} ${año}`,
-            html: `
-                <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px;">
-                    <h1 style="color: #3c4d6b; border-bottom: 3px solid #3c4d6b; padding-bottom: 10px;">
-                        📚 Reporte Mensual de Biblioteca
-                    </h1>
-                    <h2 style="color: #666;">${nombreMes} ${año}</h2>
-                    
-                    <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
-                        <h3 style="margin-top: 0; color: #3c4d6b;">📈 Resumen General</h3>
-                        <table style="width: 100%; border-collapse: collapse;">
-                            <tr>
-                                <td style="padding: 10px; font-weight: bold;">Total de préstamos:</td>
-                                <td style="padding: 10px; text-align: right; font-size: 24px; color: #3c4d6b;">${totalReservas}</td>
-                            </tr>
-                            <tr style="background-color: white;">
-                                <td style="padding: 10px; font-weight: bold;">Usuarios únicos:</td>
-                                <td style="padding: 10px; text-align: right; font-size: 24px; color: #28a745;">${usuariosUnicos}</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px; font-weight: bold;">Libros devueltos:</td>
-                                <td style="padding: 10px; text-align: right; font-size: 24px; color: #28a745;">${reservasDevueltas}</td>
-                            </tr>
-                            <tr style="background-color: white;">
-                                <td style="padding: 10px; font-weight: bold;">Préstamos activos:</td>
-                                <td style="padding: 10px; text-align: right; font-size: 24px; color: #ffc107;">${reservasActivas}</td>
-                            </tr>
-                        </table>
-                    </div>
+        if (!n8nWebhookUrl) {
+            console.warn('N8N_WEBHOOK_URL no está configurado, saltando envío de email');
+            return Response.json({
+                success: true,
+                message: 'Reporte generado (email no enviado - configurar N8N_WEBHOOK_URL)',
+                stats: {
+                    mes: `${nombreMes} ${año}`,
+                    totalReservas,
+                    usuariosUnicos,
+                    reservasDevueltas,
+                    reservasActivas,
+                    topLibros,
+                    topCategorias
+                }
+            });
+        }
 
-                    <div style="margin: 30px 0;">
-                        <h3 style="color: #3c4d6b;">🏆 Top 5 Libros Más Prestados</h3>
-                        <table style="width: 100%; border-collapse: collapse; background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                            <thead>
-                                <tr style="background-color: #3c4d6b; color: white;">
-                                    <th style="padding: 12px; text-align: left; width: 50px;">#</th>
-                                    <th style="padding: 12px; text-align: left;">Título</th>
-                                    <th style="padding: 12px; text-align: center; width: 100px;">Préstamos</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${topLibrosHTML || '<tr><td colspan="3" style="padding: 20px; text-align: center; color: #999;">No hay datos</td></tr>'}
-                            </tbody>
-                        </table>
-                    </div>
+        // Preparar datos para n8n
+        const reportData = {
+            tipo: 'reporte_mensual',
+            mes: nombreMes,
+            año: año,
+            fechaGeneracion: new Date().toLocaleDateString('es-CL'),
+            estadisticas: {
+                totalReservas,
+                usuariosUnicos,
+                reservasDevueltas,
+                reservasActivas
+            },
+            topLibros,
+            topCategorias,
+            destinatarios: ['ba.palmam@duocuc.cl', 'barbarapalmamena@gmail.com']
+        };
 
-                    <div style="margin: 30px 0;">
-                        <h3 style="color: #3c4d6b;">📚 Categorías Más Populares</h3>
-                        <table style="width: 100%; border-collapse: collapse; background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                            <thead>
-                                <tr style="background-color: #3c4d6b; color: white;">
-                                    <th style="padding: 12px; text-align: left; width: 50px;">#</th>
-                                    <th style="padding: 12px; text-align: left;">Categoría</th>
-                                    <th style="padding: 12px; text-align: center; width: 100px;">Préstamos</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${topCategoriasHTML || '<tr><td colspan="3" style="padding: 20px; text-align: center; color: #999;">No hay datos</td></tr>'}
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div style="background-color: #e8f4f8; padding: 15px; border-radius: 8px; margin-top: 30px;">
-                        <p style="margin: 0; color: #666; font-size: 14px;">
-                            <strong>Nota:</strong> Este reporte se genera automáticamente el primer día de cada mes.
-                            Para más detalles, accede al panel de administración.
-                        </p>
-                    </div>
-
-                    <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; text-align: center; color: #999; font-size: 12px;">
-                        <p>Biblioteca Iglesia Reformada Tupahue</p>
-                        <p>Reporte generado automáticamente el ${new Date().toLocaleDateString('es-CL')}</p>
-                    </div>
-                </div>
-            `
+        // Enviar a n8n
+        const n8nResponse = await fetch(n8nWebhookUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(reportData)
         });
 
-        console.log('Email send result:', emailResult);
+        if (!n8nResponse.ok) {
+            throw new Error(`Error al enviar a n8n: ${n8nResponse.statusText}`);
+        }
+
+        console.log('Datos enviados a n8n exitosamente');
 
         return Response.json({
             success: true,
-            message: 'Reporte mensual enviado',
+            message: 'Reporte mensual enviado vía n8n',
             stats: {
                 mes: `${nombreMes} ${año}`,
                 totalReservas,
