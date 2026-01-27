@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { signOut } from '../../lib/supabase';
+import { signOut, getCurrentUser } from '../../lib/supabase';
 import { supabase } from '../../lib/supabase';
 import styles from './admin.module.css';
 
