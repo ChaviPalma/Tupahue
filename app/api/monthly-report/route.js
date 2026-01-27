@@ -115,12 +115,12 @@ export async function GET(request) {
             </tr>
         `).join('');
 
-        // Enviar email a los administradores
-        const adminEmails = ['ba.palmam@duocuc.cl', 'barbarapalmamena@gmail.com'];
+        // Enviar email al administrador (solo al email verificado en Resend)
+        const adminEmail = 'ba.palmam@duocuc.cl';
 
-        await getResend().emails.send({
+        const emailResult = await getResend().emails.send({
             from: 'Biblioteca Tupahue <onboarding@resend.dev>',
-            to: adminEmails,
+            to: adminEmail,
             subject: `📊 Reporte Mensual de Biblioteca - ${nombreMes} ${año}`,
             html: `
                 <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px;">
@@ -197,6 +197,8 @@ export async function GET(request) {
                 </div>
             `
         });
+
+        console.log('Email send result:', emailResult);
 
         return Response.json({
             success: true,
