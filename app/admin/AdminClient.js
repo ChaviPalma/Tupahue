@@ -108,13 +108,67 @@ export default function AdminClient({ user }) {
         }
     };
 
+    const generateMonthlyReport = async () => {
+        if (!confirm('¿Generar reporte mensual? Se enviará por email a los administradores.')) {
+            return;
+        }
+
+        try {
+            const session = await getCurrentUser();
+            if (!session) {
+                alert('Debes iniciar sesión');
+                return;
+            }
+
+            const response = await fetch('/api/monthly-report', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${process.env.NEXT_PUBLIC_CRON_SECRET || 'test'}`
+                }
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Error al generar reporte');
+            }
+
+            const data = await response.json();
+            alert(`✅ Reporte mensual generado y enviado!\n\nEstadísticas de ${data.stats.mes}:\n- Total préstamos: ${data.stats.totalReservas}\n- Usuarios únicos: ${data.stats.usuariosUnicos}`);
+        } catch (error) {
+            console.error('Error:', error);
+            alert(`❌ ${error.message}`);
+        }
+    };
+
     return (
         <div className={styles.pageContainer}>
             <Navbar user={user} onLogout={handleLogout} />
 
             <div className={styles.container}>
-                <h1 className={styles.title}>Panel de Administración</h1>
-                <p className={styles.subtitle}>Gestión de Reservas de Biblioteca</p>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                    <div>
+                        <h1 className={styles.title}>Panel de Administración</h1>
+                        <p className={styles.subtitle}>Gestión de Reservas de Biblioteca</p>
+                    </div>
+                    <button
+                        onClick={generateMonthlyReport}
+                        style={{
+                            backgroundColor: '#28a745',
+                            color: 'white',
+                            border: 'none',
+                            padding: '12px 24px',
+                            borderRadius: '8px',
+                            cursor: 'pointer',
+                            fontWeight: '600',
+                            fontSize: '14px',
+                            transition: 'all 0.3s ease'
+                        }}
+                        onMouseOver={(e) => e.target.style.backgroundColor = '#218838'}
+                        onMouseOut={(e) => e.target.style.backgroundColor = '#28a745'}
+                    >
+                        📊 Generar Reporte Mensual
+                    </button>
+                </div>
 
                 {/* Filtros */}
                 <div className={styles.filterContainer}>

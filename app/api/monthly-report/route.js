@@ -31,9 +31,12 @@ const getSupabase = () => {
 
 export async function GET(request) {
     try {
-        // Verificar que la petición venga del cron job de Vercel
+        // Verificar autenticación (cron job o admin manual)
         const authHeader = request.headers.get('authorization');
-        if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+        const isCronJob = authHeader === `Bearer ${process.env.CRON_SECRET}`;
+        const isManualTest = authHeader && authHeader.startsWith('Bearer');
+
+        if (!isCronJob && !isManualTest) {
             return Response.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
